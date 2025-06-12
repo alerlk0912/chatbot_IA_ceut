@@ -1,0 +1,8 @@
+# Requirements for the project
+streamlit
+langchain
+PyPDF2
+python-dotenv
+tiktoken
+langchain-community
+
