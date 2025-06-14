@@ -2,7 +2,8 @@
 streamlit
 langchain
 PyPDF2
+pypdf
 python-dotenv
 tiktoken
 langchain-community
-
+beautifulsoup4
