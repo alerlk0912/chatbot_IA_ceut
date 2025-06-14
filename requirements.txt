@@ -1,4 +1,3 @@
-# Requirements for the project
 streamlit
 langchain
 PyPDF2
@@ -6,8 +5,4 @@ pypdf
 python-dotenv
 tiktoken
 langchain-community
-<<<<<<< HEAD
 beautifulsoup4
-=======
-beautifulsoup4
->>>>>>> 395186ad02cbc65cd224efd73840827d6211a33d
