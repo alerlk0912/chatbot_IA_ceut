@@ -241,7 +241,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Header con logo
-st.image("ceut-logo.png", use_column_width=True)
+st.image("data/ceut-logo.png", use_column_width=True)
 st.markdown(
     '<div style="text-align:center; margin-top:-10px;">'
     '</div>', unsafe_allow_html=True
