@@ -1,0 +1,440 @@
+/* Forzar estilos personalizados - Sobrescribir todos los temas de Streamlit */
+* {
+    box-sizing: border-box !important;
+}
+
+/* Estilos generales con máxima prioridad */
+.stApp {
+    background: linear-gradient(135deg, #f0f8ff 0%, #ffffff 50%, #f0fff0 100%) !important;
+    color: #1f2937 !important;
+}
+
+/* Forzar colores en modo oscuro */
+[data-theme="dark"] .stApp,
+.stApp[data-theme="dark"] {
+    background: linear-gradient(135deg, #f0f8ff 0%, #ffffff 50%, #f0fff0 100%) !important;
+    color: #1f2937 !important;
+}
+
+/* Sobrescribir contenedores principales */
+.main .block-container {
+    background: transparent !important;
+    color: #1f2937 !important;
+    padding-top: 1rem !important;
+}
+
+/* Header y Logo */
+.header-container {
+    background: white !important;
+    padding: 0 !important;
+    margin-bottom: 0 !important;
+    box-shadow: 0 0 0 rgba(0,0,0,0.1) !important;
+    border: 1px solid #e5e7eb !important;
+}
+
+.logo-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    position: relative !important;}
+
+.logo-image {
+    max-width: 100% !important;
+    height: auto !important;
+    filter: drop-shadow(0 0 0 rgba(0,0,0,0.1)) !important;
+}
+
+.sparkle {
+    margin-right: 4px !important;
+}
+
+/* Chat Container */
+.chat-container {
+    background: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(10px) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1) !important;
+    overflow: hidden !important;
+    border: 1px solid #e5e7eb !important;
+}
+
+.chat-header {
+    background: linear-gradient(135deg, #3b82f6, #10b981) !important;
+    color: white !important;
+    padding: 15px 20px !important;
+    border-radius: 10px 10px 10px 10px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+.chat-header h2 {
+    margin: 0 !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    color: white !important;
+}
+
+.powered-badge {
+    background: rgba(255, 255, 255, 0.2) !important;
+    padding: 4px 8px !important;
+    border-radius: 8px !important;
+    font-size: 12px !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    color: white !important;
+}
+
+/* Mensajes */
+.message-container {
+    margin: 16px 0 !important;
+    animation: fadeIn 0.3s ease-in !important;
+    padding: 0 16px !important;
+}
+
+.message-content {
+    display: flex !important;
+    gap: 12px !important;
+    align-items: flex-start !important;
+}
+
+.message-content.user {
+    flex-direction: row-reverse !important;
+    justify-content: flex-start !important;
+}
+
+.avatar {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 16px !important;
+    flex-shrink: 0 !important;
+}
+
+.bot-avatar {
+    background: linear-gradient(45deg, #3b82f6, #10b981) !important;
+    color: white !important;
+}
+
+.user-avatar {
+    background: linear-gradient(45deg, #6b7280, #9ca3af) !important;
+    color: white !important;
+}
+
+.message-text {
+    max-width: 80% !important;
+    padding: 12px 16px !important;
+    border-radius: 16px !important;
+    line-height: 1.5 !important;
+    word-wrap: break-word !important;
+}
+
+.user .message-text {
+    background: linear-gradient(45deg, #2563eb, #1d4ed8) !important;
+    color: white !important;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3) !important;
+}
+
+.bot .message-text {
+    background: #f9fafb !important;
+    color: #374151 !important;
+    border: 1px solid #e5e7eb !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+}
+
+/* Input Container */
+.input-container {
+    padding: 16px !important;
+    background: rgba(249, 250, 251, 0.8) !important;
+    border-top: 1px solid #e5e7eb !important;
+}
+
+/* Sobrescribir estilos de input de Streamlit */
+.stTextInput > div > div > input {
+    background: white !important;
+    color: #374151 !important;
+    border: 1px solid #d1d5db !important;
+    border-radius: 8px !important;
+}
+
+.stTextInput > div > div > input:focus {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 1px #3b82f6 !important;
+}
+
+/* Preguntas Rápidas */
+.quick-questions-title {
+    color: #1e40af !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    margin-bottom: 16px !important;
+    padding: 8px 0 !important;
+    border-bottom: 2px solid #dbeafe !important;
+}
+
+/* Botones personalizados para preguntas rápidas */
+.custom-button {
+    width: 100% !important;
+    background: white !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 8px !important;
+    padding: 12px 16px !important;
+    margin-bottom: 8px !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+}
+
+.custom-button:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+    border-color: #3b82f6 !important;
+    background: #f8fafc !important;
+}
+
+.button-icon {
+    font-size: 16px !important;
+    flex-shrink: 0 !important;
+}
+
+.button-content {
+    flex: 1 !important;
+    text-align: left !important;
+}
+
+.button-text {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: #374151 !important;
+    margin-bottom: 2px !important;
+}
+
+.button-category {
+    font-size: 12px !important;
+    color: #6b7280 !important;
+    background: #f3f4f6 !important;
+    padding: 2px 6px !important;
+    border-radius: 4px !important;
+    display: inline-block !important;
+}
+
+/* Información de contacto - Tus estilos mejorados */
+.info-card {
+    background: white !important;
+    border-radius: 12px !important;
+    padding: 16px !important;
+    margin: 12px 0 !important;
+    border-left: 4px solid !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05) !important;
+}
+
+.info-horarios { 
+    border-left-color: #3b82f6 !important; 
+    background: linear-gradient(135deg, #dbeafe, #f0f9ff) !important; 
+}
+
+.info-contacto { 
+    border-left-color: #10b981 !important; 
+    background: linear-gradient(135deg, #dcfce7, #f0fdf4) !important; 
+}
+
+.info-ubicacion { 
+    border-left-color: #f59e0b !important; 
+    background: linear-gradient(135deg, #fed7aa, #fffbeb) !important; 
+}
+
+.stTabs {
+    margin-top: 15px !important;  /* Cambia este valor */
+}
+
+/* Contenedor principal de tabs */
+.stTabs [data-baseweb="tab-list"] {
+    background: white !important;
+    border-radius: 12px !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
+    border: 1px solid #e5e7eb !important;
+    padding: 6px !important;
+    justify-content: space-between !important;
+    gap: 0 !important;
+
+}
+
+/* Cada pestaña individual */
+.stTabs [data-baseweb="tab"] {
+    flex: 1 !important;
+    padding: 12px 20px !important;
+    border-radius: 8px !important;
+    font-weight: 500 !important;
+    color: #6b7280 !important;
+    background: transparent !important;
+    border: none !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+/* Pestaña en hover (no seleccionada) */
+.stTabs [data-baseweb="tab"]:hover:not([aria-selected="true"]) {
+    background: rgba(59, 130, 246, 0.05) !important;
+    color: #374151 !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Pestaña activa/seleccionada con gradiente */
+.stTabs [data-baseweb="tab"][aria-selected="true"] {
+    background: linear-gradient(135deg, #3b82f6, #10b981) !important;
+    color: white !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Hover en pestaña activa (efecto más intenso) */
+.stTabs [data-baseweb="tab"][aria-selected="true"]:hover {
+    background: linear-gradient(135deg, #2563eb, #059669) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4) !important;
+}
+
+/* Contenido de las pestañas */
+.stTabs [data-baseweb="tab-panel"] {
+    background: white !important;
+    border-radius: 0 0 12px 12px !important;
+}
+
+/* Sobrescribir sidebar */
+.css-1d391kg, .css-1lcbmhc, .css-1cypcdb {
+    background: rgba(255, 255, 255, 0.95) !important;
+    color: #1f2937 !important;
+}
+
+/* Sobrescribir botones de Streamlit */
+.stButton > button {
+    background: linear-gradient(135deg, #3b82f6, #10b981) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
+}
+
+.stButton > button:hover {
+    background: linear-gradient(135deg, #2563eb, #059669) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Clase personalizada para botones con gradiente */
+.gradient-button {
+    background: linear-gradient(135deg, #3b82f6, #10b981) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
+    width: 100% !important;
+    padding: 8px 16px !important;
+    cursor: pointer !important;
+    position: relative !important;
+    z-index: 5 !important;  /* Por debajo del botón funcional */
+}
+
+.gradient-button:hover {
+    background: linear-gradient(135deg, #2563eb, #059669) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+}
+
+.clear-button {
+    background: linear-gradient(135deg, #3b82f6, #06b6d4, #10b981) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+}
+
+.clear-button:hover {
+    background: linear-gradient(135deg, #0891b2, #0e7490, #164e63) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3) !important;
+}
+
+.send-button {
+    background: linear-gradient(135deg, #3b82f6, #06b6d4, #10b981) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+}
+
+.send-button:hover {
+    background: linear-gradient(135deg, #0891b2, #0e7490, #164e63) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3) !important;
+}
+
+/* Ocultar botones de preguntas rápidas */
+.stButton[data-testid*="quick_btn"] {
+    display: none !important;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0 !important;
+        transform: translateY(10px) !important;
+    }
+    to {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1 !important;
+    }
+    50% {
+        opacity: 0.8 !important;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .logo-image {
+        max-width: 300px !important;
+    }
+    
+    .message-text {
+        max-width: 90% !important;
+    }
+    
+    .custom-button {
+        padding: 10px 12px !important;
+    }
+    
+    .button-text {
+        font-size: 13px !important;
+    }
+}
+
+/* Forzar visibilidad de todos los elementos */
+.stApp *, .stApp *::before, .stApp *::after {
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Sobrescribir cualquier tema oscuro residual */
+@media (prefers-color-scheme: dark) {
+    .stApp {
+        background: linear-gradient(135deg, #f0f8ff 0%, #ffffff 50%, #f0fff0 100%) !important;
+        color: #1f2937 !important;
+    }
+}
