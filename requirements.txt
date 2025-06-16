@@ -1,8 +1,14 @@
 streamlit
-langchain
 PyPDF2
 pypdf
 python-dotenv
 tiktoken
+langchain
 langchain-community
+langchain-core
 beautifulsoup4
+llama-index
+llama-index-llms-groq
+llama-index-embeddings-huggingface
+groq
+requests

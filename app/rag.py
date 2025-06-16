@@ -1,28 +1,8 @@
-from langchain_community.document_loaders import PyPDFLoader
-from tools import scrape_secciones_utn
+from llama_index.core import VectorStoreIndex
+from tools import load_pdfs_from_folder
 
-def cargar_documento(pdf_path="data/faqs.pdf"):
-    loader = PyPDFLoader(pdf_path)
-    documentos_pdf = loader.load()
+def create_index(documents):
+    return VectorStoreIndex.from_documents(documents)
 
-    documentos_web = scrape_secciones_utn()
-
-    return documentos_pdf + documentos_web
-
-# Cargar contexto desde documentos en texto plano
-def buscar_contexto(pregunta, documentos):
-    pregunta = pregunta.lower()
-    palabras = pregunta.split()
-    contexto = []
-
-    for doc in documentos:
-        contenido = doc.page_content.lower()
-        if any(palabra in contenido for palabra in palabras):
-            contexto.append(doc.page_content)
-
-    if not contexto:
-        contexto = [documentos[0].page_content]
-
-    return "\n".join(contexto[:3])
-
-
+def create_chat_engine(index, verbose=False):
+    return index.as_chat_engine(chat_mode="context", verbose=verbose)

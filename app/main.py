@@ -1,8 +1,24 @@
 import streamlit as st
 import base64
-from rag import cargar_documento, buscar_contexto
-from agent import query_llm
-from tools import generar_texto_links
+from agent import configure_llm
+from rag import create_chat_engine
+from tools import load_pdfs_from_folder
+from llama_index.core import VectorStoreIndex, StorageContext, load_index_from_storage
+import os
+
+
+import nest_asyncio
+nest_asyncio.apply()
+import warnings
+
+warnings.filterwarnings(
+    "ignore",
+    message="`resume_download` is deprecated and will be removed in version 1.0.0"
+)
+# Ignorar warnings específicos que contienen estas frases
+warnings.filterwarnings("ignore", message="Could get FontBBox from font descriptor")
+warnings.filterwarnings("ignore", message="Cannot set gray stroke color")
+warnings.filterwarnings("ignore", message="Cannot set gray non-stroke color")
 
 # Configuración inicial de la app
 st.set_page_config(
@@ -24,10 +40,19 @@ def get_base64_image(image_path):
     except:
         return None
 
-# Cargar documentos PDF una vez
 @st.cache_resource
-def cargar_datos():
-    return cargar_documento("data/faqs.pdf")
+def cargar_chat_engine():
+    configure_llm()
+
+    if os.path.exists("storage"):
+        storage_context = StorageContext.from_defaults(persist_dir="storage")
+        index = load_index_from_storage(storage_context)
+    else:
+        documents = load_pdfs_from_folder("data")  # asegúrate que devuelve Document[]
+        index = VectorStoreIndex.from_documents(documents)
+        index.storage_context.persist(persist_dir="storage")
+
+    return create_chat_engine(index)
 
 # Función para mostrar el header con logo
 def render_header():
@@ -153,7 +178,7 @@ def main():
         st.session_state.send_message = False
     
     # Cargar documentos
-    documentos = cargar_datos()
+    chat_engine = cargar_chat_engine()
     
     # Renderizar header
     render_header()
@@ -227,23 +252,10 @@ def main():
         
         with st.spinner("🔎 Buscando información relevante..."):
             try:
-                contexto_rag = buscar_contexto(input_usuario, documentos)
-                links_utiles = generar_texto_links()
-                
-                MAX_CONTEXT_CHARS = 3000
-                contexto_recortado = contexto_rag[:MAX_CONTEXT_CHARS]
-                
-                # Preparar prompt
-                prompt = [
-                    {"role": "system", "content": "Sos un chatbot del centro de estudiantes de UTN FRSF que ayuda a los estudiantes con sus dudas. Proporciona respuestas claras y concisas basadas en la información proporcionada."},
-                    {"role": "user", "content": f"{input_usuario}\n\nContexto:\n{contexto_recortado}\n\nLinks:\n{links_utiles}"}
-                ]
-                
-                # Obtener respuesta
-                respuesta = query_llm(prompt)
+                respuesta = chat_engine.chat(input_usuario)
                 
                 # Guardar en historial
-                st.session_state.historial.append((input_usuario, respuesta))
+                st.session_state.historial.append((input_usuario, respuesta.response))
                 st.rerun()
                 
             except Exception as e:
