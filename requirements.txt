@@ -1,6 +1,7 @@
 streamlit
 PyPDF2
 pypdf
+pdfplumber
 python-dotenv
 tiktoken
 langchain
@@ -12,3 +13,8 @@ llama-index-llms-groq
 llama-index-embeddings-huggingface
 groq
 requests
+torch
+numpy
+nltk
+openai
+huggingface-hub
