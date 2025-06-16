@@ -1,3 +1,9 @@
+import asyncio
+import sys
+
+if sys.platform.startswith("win") and sys.version_info >= (3, 8):
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+
 import streamlit as st
 import base64
 from agent import configure_llm
