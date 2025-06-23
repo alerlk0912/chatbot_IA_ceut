@@ -18,4 +18,3 @@ numpy
 nltk
 openai
 huggingface-hub
-hf_text
