@@ -7,38 +7,29 @@ if sys.platform.startswith("win") and sys.version_info >= (3, 8):
 import streamlit as st
 import base64
 from agent import configure_llm
-from rag import create_chat_engine
-from tools import load_pdfs_from_folder
-from llama_index.core import VectorStoreIndex, StorageContext, load_index_from_storage
+from rag import RAG
+from tools import Tools
 import os
-
 
 import nest_asyncio
 nest_asyncio.apply()
 import warnings
 
-warnings.filterwarnings(
-    "ignore",
-    message="`resume_download` is deprecated and will be removed in version 1.0.0"
-)
-# Ignorar warnings específicos que contienen estas frases
+warnings.filterwarnings("ignore", message="`resume_download` is deprecated")
 warnings.filterwarnings("ignore", message="Could get FontBBox from font descriptor")
 warnings.filterwarnings("ignore", message="Cannot set gray stroke color")
 warnings.filterwarnings("ignore", message="Cannot set gray non-stroke color")
 
-# Configuración inicial de la app
 st.set_page_config(
     page_title="🤖 Asistente Virtual CEUT",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Función para cargar CSS y forzar estilos personalizados
 def load_css():
     with open("style.css", "r", encoding="utf-8") as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
-# Función para convertir imagen a base64
 def get_base64_image(image_path):
     try:
         with open(image_path, "rb") as img_file:
@@ -46,21 +37,29 @@ def get_base64_image(image_path):
     except:
         return None
 
+from agent import Agent
+
+from memory import ConversationMemory  # IMPORTA tu clase memory
+
 @st.cache_resource
 def cargar_chat_engine():
     configure_llm()
+    tools = Tools(tavily_api_key=os.getenv("TAVILY_API_KEY"))
+    #tools_list = tools.get_tools_list()
+    rag = RAG(persist_directory="./data/chroma_db", tools=tools)
 
-    if os.path.exists("storage"):
-        storage_context = StorageContext.from_defaults(persist_dir="storage")
-        index = load_index_from_storage(storage_context)
-    else:
-        documents = load_pdfs_from_folder("data")  # asegúrate que devuelve Document[]
-        index = VectorStoreIndex.from_documents(documents)
-        index.storage_context.persist(persist_dir="storage")
+    if rag.get_collection_stats()["total_documents"] == 0:
+        documents = tools.load_pdfs_from_folder("data")
+        joined_text = "\n\n".join([doc.text for doc in documents])
+        rag.index_documents(joined_text, document_name="ceut")
 
-    return create_chat_engine(index)
+    # Crear instancia de memoria (puedes usar user_id diferente si querés)
+    memory = ConversationMemory(session_file="./data/sessions.json", user_id="default_user")
 
-# Función para mostrar el header con logo
+    # Pasar memory al agente
+    agent = Agent(rag_system=rag, tools=tools, memory=memory)
+    return agent
+
 def render_header():
     logo_base64 = get_base64_image("ceut-logo.png")
     if logo_base64:
@@ -80,60 +79,41 @@ def render_header():
         </div>
         """, unsafe_allow_html=True)
 
-# Función para mostrar preguntas rápidas (versión original corregida)
 def render_quick_questions():
     st.markdown('<div class="quick-questions-title">Preguntas Frecuentes</div>', unsafe_allow_html=True)
-    
     quick_questions = [
-        {"text": "¿Qué becas están disponibles?", "category": "Becas", "icon": "🎓", "color": "blue"},
-        {"text": "¿Cuándo es el próximo evento?", "category": "Eventos", "icon": "📅", "color": "green"},
-        {"text": "¿Cómo me contacto con el centro?", "category": "Contacto", "icon": "💬", "color": "orange"},
-        {"text": "¿Qué actividades deportivas hay?", "category": "Deportes", "icon": "👥", "color": "purple"},
-        {"text": "¿Cuáles son los horarios de atención?", "category": "Horarios", "icon": "🕐", "color": "gray"},
-        {"text": "¿Qué dice el reglamento de becas?", "category": "Documentos", "icon": "📄", "color": "red"}
+        {"text": "¿Qué becas están disponibles?", "category": "Becas", "icon": "🎓"},
+        {"text": "¿Cuándo es el próximo evento?", "category": "Eventos", "icon": "📅"},
+        {"text": "¿Cómo me contacto con el centro?", "category": "Contacto", "icon": "💬"},
+        {"text": "¿Qué actividades deportivas hay?", "category": "Deportes", "icon": "👥"},
+        {"text": "¿Cuáles son los horarios de atención?", "category": "Horarios", "icon": "🕐"},
+        {"text": "¿Qué dice el reglamento de becas?", "category": "Documentos", "icon": "📄"}
     ]
-    
     for i, question in enumerate(quick_questions):
-        if st.button(
-            f"{question['icon']} {question['text']}", 
-            key=f"quick_{i}",
-            use_container_width=True
-        ):
+        if st.button(f"{question['icon']} {question['text']}", key=f"quick_{i}", use_container_width=True):
             st.session_state.input_usuario = question['text']
             st.session_state.send_message = True
             st.rerun()
 
-# Función para mostrar información de contacto
 def render_contact_info():
     st.markdown("""
     <div class="info-card info-horarios">
-        <h4 style="margin: 0 0 8px 0; display: flex; align-items: center; gap: 8px;">
-            🕐 Horarios de Atención
-        </h4>
-        <p style="margin: 0; color: #1e40af;">Lunes a Viernes: 9:00 - 18:00</p>
+        <h4>🕐 Horarios de Atención</h4>
+        <p>Lunes a Viernes: 08:00 - 21:00</p>
     </div>
-    
     <div class="info-card info-contacto">
-        <h4 style="margin: 0 0 8px 0; display: flex; align-items: center; gap: 8px;">
-            💬 Contacto
-        </h4>
-        <p style="margin: 0; color: #166534; font-size: 14px;">centro@frsf.utn.edu.ar</p>
-        <p style="margin: 0; color: #166534; font-size: 14px;">(0342) 460-1579</p>
+        <h4>💬 Contacto</h4>
+        <p>Ig: <a href="https://www.instagram.com/ceut.frsf/" target="_blank">ceut.frsf</a></p>
     </div>
-        
     <div class="info-card info-ubicacion">
-        <h4 style="margin: 0 0 8px 0; display: flex; align-items: center; gap: 8px;">
-            📍 Ubicación
-        </h4>
-        <p style="margin: 0; color: #9a3412; font-size: 14px;">Lavaise 610, Santa Fe, Argentina</p>
+        <h4>📍 Ubicación</h4>
+        <p>Aula 0, UTN Santa Fe</p>
     </div>
     """, unsafe_allow_html=True)
 
-# Función para mostrar mensajes del chat
 def render_chat_messages():
     if st.session_state.historial:
-        for i, (entrada, salida) in enumerate(st.session_state.historial):
-            # Mensaje del usuario (solo si no está vacío)
+        for entrada, salida in st.session_state.historial:
             if entrada.strip():
                 st.markdown(f"""
                 <div class="message-container user-message">
@@ -143,8 +123,6 @@ def render_chat_messages():
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
-            
-            # Mensaje del bot
             st.markdown(f"""
             <div class="message-container bot-message">
                 <div class="message-content bot">
@@ -154,46 +132,24 @@ def render_chat_messages():
             </div>
             """, unsafe_allow_html=True)
 
-# Función para limpiar historial
 def limpiar_historial():
-    st.session_state.historial = []
-    # Agregar mensaje de bienvenida nuevamente
-    st.session_state.historial.append((
-        "",
-        "¡Hola! 👋 Soy el asistente virtual del Centro de Estudiantes UTN FRSF. Estoy aquí para ayudarte con información sobre becas, eventos, trámites y todo lo que necesites saber sobre la vida universitaria. ¿En qué puedo ayudarte hoy?"
-    ))
+    st.session_state.historial = [("", "¡Hola! 👋 Soy el asistente virtual del Centro de Estudiantes UTN FRSF. Estoy aquí para ayudarte.")]
 
-# Función principal
 def main():
-    # Cargar CSS con forzado de estilos
     load_css()
-    
-    # Inicializar estados
+
     if "historial" not in st.session_state:
-        st.session_state.historial = []
-        # Mensaje de bienvenida
-        st.session_state.historial.append((
-            "",
-            "¡Hola! 👋 Soy el asistente virtual del Centro de Estudiantes UTN FRSF. Estoy aquí para ayudarte con información sobre becas, eventos, trámites y todo lo que necesites saber sobre la vida universitaria. ¿En qué puedo ayudarte hoy?"
-        ))
-    
+        limpiar_historial()
     if "input_usuario" not in st.session_state:
         st.session_state.input_usuario = ""
-    
     if "send_message" not in st.session_state:
         st.session_state.send_message = False
-    
-    # Cargar documentos
-    chat_engine = cargar_chat_engine()
-    
-    # Renderizar header
+
+    agent = cargar_chat_engine()  # 🟢 Renombrado por claridad
     render_header()
-    
-    # Layout principal
+
     col1, col2 = st.columns([3, 1])
-    
     with col1:
-        # Chat container
         st.markdown('<div class="chat-container">', unsafe_allow_html=True)
         st.markdown("""
         <div class="chat-header">
@@ -201,69 +157,55 @@ def main():
             <span class="powered-badge">Powered by Groq</span>
         </div>
         """, unsafe_allow_html=True)
-        
-        # Área de mensajes
-        with st.container():
-            render_chat_messages()
-        
+
+        render_chat_messages()
         st.markdown('</div>', unsafe_allow_html=True)
-        
-        # Input del usuario con funcionalidad Enter
+
         st.markdown('<div class="input-container">', unsafe_allow_html=True)
-        
-        # Crear formulario para habilitar Enter
         with st.form(key="chat_form", clear_on_submit=True):
             col_input, col_send, col_clear = st.columns([3, 1, 1])
-            
             with col_input:
-                input_usuario = st.text_input(
-                    "Mensaje",  # <- Agregar un label apropiado
-                    value=st.session_state.input_usuario,
-                    placeholder="Escribe tu pregunta aquí...",
-                    key="chat_input_form",
-                    label_visibility="collapsed"  # Esto lo mantiene oculto visualmente
-                )
-            
+                input_usuario = st.text_input("Mensaje", value=st.session_state.input_usuario, placeholder="Escribe tu pregunta aquí...", key="chat_input_form", label_visibility="collapsed")
             with col_send:
-                #st.html('<button class="gradient-button send-button" onclick="submitForm()">▶️ Enviar</button>')
                 send_button = st.form_submit_button("Enviar", use_container_width=True)
-
             with col_clear:
-                #st.html('<button class="gradient-button clear-button" onclick="submitForm()">🧹 Limpiar</button>')
                 clear_button = st.form_submit_button("🧹 Limpiar", use_container_width=True)
-        
         st.markdown('</div>', unsafe_allow_html=True)
-    
+
     with col2:
-        # Sidebar con pestañas (solo Preguntas e Información)
         tab1, tab2 = st.tabs(["Preguntas", "Información"])
-        
         with tab1:
             render_quick_questions()
-        
         with tab2:
             render_contact_info()
 
-    # Procesamiento del botón limpiar
     if clear_button:
         limpiar_historial()
         st.rerun()
-    
-    # Procesamiento de la consulta (Enter o botón Enviar)
+
     if (send_button and input_usuario) or st.session_state.send_message:
         if st.session_state.send_message:
             input_usuario = st.session_state.input_usuario
             st.session_state.send_message = False
             st.session_state.input_usuario = ""
-        
-        with st.spinner("🔎 Buscando información relevante..."):
+
+        with st.spinner("🤖 Pensando..."):
             try:
-                respuesta = chat_engine.chat(input_usuario)
-                
-                # Guardar en historial
-                st.session_state.historial.append((input_usuario, respuesta.response))
+                resultado = agent.generate_response(input_usuario)  # 🟢 Llamamos a agent, no rag
+                respuesta = resultado['response']
+
+                # 🟢 Podés mostrar qué sistemas se usaron, si querés:
+                sistemas = []
+                if resultado.get("context_used"):
+                    sistemas.append("📄 RAG")
+                if resultado.get("tools_used"):
+                    sistemas.append("🛠️ Tools")
+
+                if sistemas:
+                    respuesta += f"\n\n_Respuesta generada usando: {' + '.join(sistemas)}_"
+
+                st.session_state.historial.append((input_usuario, respuesta))
                 st.rerun()
-                
             except Exception as e:
                 st.error(f"⚠️ Ocurrió un error: {e}")
 

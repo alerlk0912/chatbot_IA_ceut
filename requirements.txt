@@ -18,3 +18,13 @@ numpy
 nltk
 openai
 huggingface-hub
+sentence-transformers
+chromadb
+scikit-learn
+plotly
+pandas
+numpy
+matplotlib
+
+duckduckgo-search
+tavily-python 
