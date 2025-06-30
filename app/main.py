@@ -1,14 +1,10 @@
 import sys
-__import__('pysqlite3')
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
-
 import asyncio
 if sys.platform.startswith("win") and sys.version_info >= (3, 8):
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 import streamlit as st
 import base64
-from agent import configure_llm
 from rag import RAG
 from tools import Tools
 import os
@@ -45,7 +41,6 @@ from memory import ConversationMemory  # IMPORTA tu clase memory
 
 @st.cache_resource
 def cargar_chat_engine():
-    configure_llm()
     tools = Tools(tavily_api_key=os.getenv("TAVILY_API_KEY"))
     rag = RAG(persist_directory="./data/chroma_db", tools=tools)
 

@@ -1,60 +1,43 @@
 import os
 import json
 from dotenv import load_dotenv
-from groq import Groq
 from typing import List, Optional
-from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
 from langchain_core.tools import Tool
-from sentence_transformers import SentenceTransformer
+import google.generativeai as genai
 
 load_dotenv()
 
 class Agent:
     def __init__(self, rag_system=None, tools: Optional[object] = None, memory=None):
-        self.groq_api_key = os.getenv("GROQ_API_KEY")
-        if not self.groq_api_key:
-            raise ValueError("Falta GROQ_API_KEY en .env")
+        self.api_key = os.getenv("GEMINI_API_KEY")
+        if not self.api_key:
+            raise ValueError("Falta GEMINI_API_KEY en .env")
 
-        self.client = Groq(api_key=self.groq_api_key)
-        self.model = "llama-3.3-70b-versatile"
+        genai.configure(api_key=self.api_key)
+        self.model = genai.GenerativeModel("gemini-1.5-flash")
+
         self.rag_system = rag_system
         self.tools = tools or []
-
         self.temperature = 0.3
-        self.max_tokens = 1000
+        self.max_tokens = 2048
         self.system_prompt = (
             "Eres un asistente del Centro de Estudiantes de la UTN Santa Fe. "
             "Responde de forma directa y concisa usando la información disponible. "
             "Si usas documentos o herramientas, menciona brevemente la fuente pero mantén la respuesta clara y al punto."
         )
-
         self.memory = memory
 
     def process_query(self, query: str, context: str = "", history: Optional[List[dict]] = None) -> str:
-        messages = [{"role": "system", "content": self.system_prompt}]
-        if history is None and self.memory:
-            history = self.memory.get_history()
-        if history:
-            messages.extend(history)
-
-        user_message = f"{context}\n\nPregunta: {query}" if context else query
-        messages.append({"role": "user", "content": user_message})
-
         try:
-            response = self.client.chat.completions.create(
-                model=self.model,
-                messages=messages,
-                temperature=self.temperature,
-                max_tokens=self.max_tokens
-            )
-            respuesta_text = response.choices[0].message.content
+            prompt = f"{self.system_prompt}\n\n{context}\n\nUsuario: {query}" if context else f"{self.system_prompt}\n\nUsuario: {query}"
+            response = self.model.generate_content(prompt)
+            response_text = response.text
 
             if self.memory:
-                self.memory.add_message("user", user_message)
-                self.memory.add_message("assistant", respuesta_text)
+                self.memory.add_message("user", query)
+                self.memory.add_message("assistant", response_text)
 
-            return respuesta_text
-
+            return response_text
         except Exception as e:
             return f"Error: {e}"
 
@@ -139,13 +122,3 @@ class Agent:
             "has_rag": self.rag_system is not None,
             "tools_loaded": [tool.name for tool in self.tools]
         }
-
-# 🧠 Integración para llama-index
-def configure_llm():
-    from llama_index.llms.groq import Groq as LlamaGroq
-    from llama_index.embeddings.huggingface import HuggingFaceEmbedding
-    from llama_index.core import Settings
-
-    llm = LlamaGroq(model="llama3-8b-8192", api_key=os.getenv("GROQ_API_KEY"))
-    Settings.llm = llm
-    Settings.embed_model = HuggingFaceEmbedding(model_name="sentence-transformers/all-MiniLM-L6-v2")

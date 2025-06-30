@@ -13,6 +13,7 @@ llama-index
 llama-index-llms-groq
 llama-index-embeddings-huggingface
 groq
+google-generativeai
 requests
 torch
 numpy

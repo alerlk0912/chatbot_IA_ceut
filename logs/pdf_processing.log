@@ -1,16 +1,37 @@
-2025-06-30 02:57:43,140 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
-2025-06-30 02:57:46,758 - INFO - 2 prompts are loaded, with the keys: ['query', 'text']
-2025-06-30 02:57:47,929 - INFO - Use pytorch device_name: cpu
-2025-06-30 02:57:47,929 - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
-2025-06-30 02:57:51,211 - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
-2025-06-30 02:58:08,266 - INFO - [RAG Search] Query: Cuales son las materias de 5to año de civil?
-2025-06-30 02:58:08,266 - INFO - [RAG Search] Doc source: ceut, Similarity: -14.2828
-2025-06-30 02:58:08,266 - INFO - [RAG Search] Doc source: ceut, Similarity: -14.4144
-2025-06-30 02:58:08,266 - INFO - [RAG Search] Doc source: ceut, Similarity: -17.2919
-2025-06-30 02:58:12,570 - INFO - [RAG Results] Query: Cuales son las materias de 5to año de civil?
-2025-06-30 02:58:12,571 - INFO - [RAG Results] Sources: ['ceut', 'ceut', 'ceut', 'https://www.frsf.utn.edu.ar/uploads/dto-ing-civil/Oferta_PS_Piramide.pdf', 'https://sidn.frsf.utn.edu.ar/resoluciones/?pcg_show=100', 'https://caimcaife2023.frsf.utn.edu.ar/carreras/ingenierias/ingenieria-civil']
-2025-06-30 02:58:12,571 - INFO - [RAG Results] Confidence: -15.3297
-2025-06-30 02:58:12,571 - INFO - [RAG Results] Context part 0: 📄 HUEL
+2025-06-30 14:49:15,381 - INFO - Use pytorch device_name: cpu
+2025-06-30 14:49:15,381 - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-06-30 14:49:18,844 - INFO - [RAG Search] Query: cuales son las autoridades del ceut de la utn frsf?
+2025-06-30 14:49:18,844 - INFO - [RAG Search] Doc source: ceut, Similarity: -11.2932
+2025-06-30 14:49:18,844 - INFO - [RAG Search] Doc source: ceut, Similarity: -11.9608
+2025-06-30 14:49:18,845 - INFO - [RAG Search] Doc source: ceut, Similarity: -13.7147
+2025-06-30 14:49:24,591 - INFO - [RAG Results] Query: cuales son las autoridades del ceut de la utn frsf?
+2025-06-30 14:49:24,591 - INFO - [RAG Results] Sources: ['ceut', 'ceut', 'ceut', 'https://www.frsf.utn.edu.ar/images/SCTyV-Romero_Sergio/Normativas/POL%C3%8DTICA_DE_CIENCIA_Y_TECNOLOG%C3%8DA/Res-CD-391-12.pdf', 'https://www.frsf.utn.edu.ar/uploads/institucional/Informe_de_Gesti%C3%B3n_2014.pdf', 'https://euroelecs2019.frsf.utn.edu.ar/institucional/autoridades']
+2025-06-30 14:49:24,592 - INFO - [RAG Results] Confidence: -12.3229
+2025-06-30 14:49:24,592 - INFO - [RAG Results] Context part 0: 📄 HUEL
+Rectorado JEFE DE DEPARTAMENTO
+APOYO AL CONSEJO SUPERIOR
+PARA CURSAR
+Y RENDIR
+NIVEL Nº ASIGNATURA
+Cursadas Aprobadas
+31 Inteligencia Artificial 28 17-22
+32 Ciencia de Datos 28 17-19
+33 Sistemas de Gestión 18-27 23
+V 34 Gestión Gerencial 24-30 18
+Seguridad en los Sistemas de
+35 26-30 20-21
+Información
+Para cursar
+36 Proyecto Final (integradora) 25-26-30 12-20-23
+Proyecto Final
+Es condición para rendir Proyecto Final, aprobar todas las asignaturas previas del
+Plan de Estudios
+Práctica Profesional Supervisada
+Es condición previa para iniciar y acreditar la Práctica Profesional Supervisada el
+cumplimiento de los requisitos académicos exigidos para la inscripción a Proyecto
+Final
+5
+2025-06-30 14:49:24,592 - INFO - [RAG Results] Context part 1: 📄 HUEL
 Rectorado JEFE DE DEPARTAMENTO
 APOYO AL CONSEJO SUPERIOR
 PARA CURSAR
@@ -41,31 +62,7 @@ TABLE:
 
 ----------------------------------------
 PABLO A
-2025-06-30 02:58:12,571 - INFO - [RAG Results] Context part 1: 📄 HUEL
-Rectorado JEFE DE DEPARTAMENTO
-APOYO AL CONSEJO SUPERIOR
-PARA CURSAR
-Y RENDIR
-NIVEL Nº ASIGNATURA
-Cursadas Aprobadas
-31 Inteligencia Artificial 28 17-22
-32 Ciencia de Datos 28 17-19
-33 Sistemas de Gestión 18-27 23
-V 34 Gestión Gerencial 24-30 18
-Seguridad en los Sistemas de
-35 26-30 20-21
-Información
-Para cursar
-36 Proyecto Final (integradora) 25-26-30 12-20-23
-Proyecto Final
-Es condición para rendir Proyecto Final, aprobar todas las asignaturas previas del
-Plan de Estudios
-Práctica Profesional Supervisada
-Es condición previa para iniciar y acreditar la Práctica Profesional Supervisada el
-cumplimiento de los requisitos académicos exigidos para la inscripción a Proyecto
-Final
-5
-2025-06-30 02:58:12,571 - INFO - [RAG Results] Context part 2: 📄 HUEL
+2025-06-30 14:49:24,592 - INFO - [RAG Results] Context part 2: 📄 HUEL
 JEFE DE DEPARTAMENTO
 APOYO AL CONSEJO SUPERIOR
 
@@ -75,29 +72,24 @@ NIVEL | Nº | ASIGNATURA | PARA CURSAR
 Y RENDIR | None
 ----------------------------------------
 None | None | None | Cursadas | Aprobadas
-III | 17 | Probabilidad y Estadística | 1-2 | -
-None | 18 | Economía | - | 1-2
-None | 19 | Bases de Datos | 13-16 | 5-6
-None | 20 | Desarrollo de Software | 14-16 | 5-6
-None | 21 | Comunicación de Datos | - | 3-7
-None | 22 | Análisis Numérico | 9 | 1-2
-None | 23 | Diseño de Sistemas de Información
-(integradora) | 14-16 | 4-6-8
-IV | 24 | Legislación | 11 | -
-None | 25 | Ingeniería y Calidad de Software | 19-20-23 | 13-14
-None | 26 | Redes de Datos | 15-21 | -
-None | 27 | Investigación Operativa | 17-22 | -
-None | 28 | Simulación | 17 | 9
-None | 29 | Tecnologías para la automatización | 10-22 | 9
-None | 30 | Administración de Sistemas de
-Información (integradora) | 18-23 | 16
+V | 31 | Inteligencia Artificial | 28 | 17-22
+None | 32 | Ciencia de Datos | 28 | 17-19
+None | 33 | Sistemas de Gestión | 18-27 | 23
+None | 34 | Gestión Gerencial | 24-30 | 18
+None | 35 | Seguridad en los Sistemas de
+Información | 26-30 | 20-21
+None |  | None | Para cursar | None
+None | 36 | Proyecto Final (integradora) | 25-26-30 | 12-20-23
+Proyecto Final | None | None | None | None
+Es condición para rendir Proyecto Final, aprobar todas las asignaturas previas del
+Plan de Estudios | None | None | None | None
+Práctica Profesional Supervisada | None | None | None | None
+Es condición previa para iniciar y acreditar la Práctica Profesional Supervisada el
+cumplimiento de los requisitos académicos exigidos para la inscripción a Proyecto
+Final | None | None | None | None
 
 
-“Malvinas son argentinas”
-Ministerio de Educación
-Universidad Tecnológica Nacional
-PABLO A
-2025-06-30 02:58:12,571 - INFO - [RAG Results] Context part 3: 🌐 OFERTA DE PRÁCTICA SUPERVISADA: Se requiere ser estudiante de Ingeniería Civil 5to año, con materias aprobadas relacionadas al Plan de. Trabajo Propuesto. De la empresa: • Disponibilidad (https://www.frsf.utn.edu.ar/uploads/dto-ing-civil/Oferta_PS_Piramide.pdf)
-2025-06-30 02:58:12,571 - INFO - [RAG Results] Context part 4: 🌐 UTN Santa Fe - UTN Facultad Regional Santa Fe - resolucion: FÍSICA II – PROBABILIDAD Y ESTADÍSTICA – INGENIERÍA CIVIL II – TECNOLOGÍA DE LOS MATERIALES – INGLÉS I. Tercer Nivel: RESISTENCIA DE MATERIALES – GEOTOPOGRAFÍA – CÁLCULO AVANZADO – INSTALACIONES TERMOMECÁNICAS – ECONOMÍA. Cuarto Nivel: DISEÑO ARQUITECTÓNICO, PLANEAMIENTO Y URBANISMO. Quinto Nivel: ORGANIZACIÓN Y CONDUCCIÓN DE OBRAS. ARTÍCULO 2º.–Para otorgar equivalencias en las siguientes asignaturas, el citado estudiante deberá rendir y aprobar Evaluaciones Complementarias sobre los temas que [...] en cada caso se indican: ESTABILIDAD: Líneas de influencia en estructuras isostáticas (vigas y reticulados). Cables sometidos a cargas puntuales y a cargas distribuidas, en proyección horizontal. TECNOLOGÍA DE LA CONSTRUCCIÓN: Movimientos de suelos. Pavimentos. HIDRÁULICA GENERAL Y APLICADA: Unidad temática 6 (completa): Canalizaciones abiertas. Ecuación de Chezy. Movimiento permanente uniforme. Movimiento permanente gradualment
-2025-06-30 02:58:12,571 - INFO - [RAG Results] Context part 5: 🌐 Ingeniería Civil - UTN Facultad Regional Santa Fe: Resolución Ministerial Nro. 2353/15 Acreditada por Res. CONEAU Nº 489/13 por 6 años Duración: 5 años y medio civil@frsf.utn.edu.ar Como Ingeniero Civil podés: Proyectar, calcular, dirigir, inspeccionar, construir y realizar el mantenimiento de obras tales como: edificios (residenciales, comerciales e industriales); obras de infraestructura (redes de agua potable, gas, desagües cloacales (https://caimcaife2023.frsf.utn.edu.ar/carreras/ingenierias/ingenieria-civil)
-2025-06-30 02:58:12,935 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+“Malvinas son argentin
+2025-06-30 14:49:24,592 - INFO - [RAG Results] Context part 3: 🌐 (RES CD Nº 391-12) - UTN Santa Fe: www.frsf.utn.edu.ar. Page 3. UTN SANTA FE. Autoridades Universidad Tecnológica Nacional Facultad Regional Santa Fe. Decano: Ing. Rudy Grether. Vicedecano: Ing (https://www.frsf.utn.edu.ar/images/SCTyV-Romero_Sergio/Normativas/POL%C3%8DTICA_DE_CIENCIA_Y_TECNOLOG%C3%8DA/Res-CD-391-12.pdf)
+2025-06-30 14:49:24,592 - INFO - [RAG Results] Context part 4: 🌐 INFORME DE GESTIÓN UTN Santa Fe Año 2014: Autoridades Decano Eduardo J. Donnet Vicedecano Rudy Omar Grether Secretario Académico Alfonso Giménez Uribe Secretario Administrativo Miguel Ángel Bantar Secretaria de Ciencia y Tecnología Ana Rosa Tymoschuk Secretario De Extensión Universitaria Darío Lattanzi Secretario de Planeamiento y Gestión Raúl Regalini Secretario de Relaciones Institucionales Diego Pereyra Subsecretario de Vinculación Institucional Diego Martín Alarcón Subsecretario de Graduados Walter Klug Subsecretaria de Vinculación [...] UNIVERSIDAD TECNOLÓGICA NACIONAL - FACULTAD REGIONAL SANTA FE LAVAISE 610 - S3004EWB SANTA FE - ARGENTINA TE +54 (342) 460 1579 / www.frsf.utn.edu.ar INFORME DE GESTIÓN UTN Santa Fe Año 2014 Informe de Gestión UTN Santa Fe Año 2014 Índice 1. Autoridades ......................................................................................................... 3 2. Dimensión Académica .................................................................
+2025-06-30 14:49:24,593 - INFO - [RAG Results] Context part 5: 🌐 Autoridades - UTN Facultad Regional Santa Fe: Listado de autoridades de la UTN Facultad Regional Santa Fe.Decano Eduardo Donnet, Secretarias y Secretetarios. (https://euroelecs2019.frsf.utn.edu.ar/institucional/autoridades)

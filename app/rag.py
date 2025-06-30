@@ -1,6 +1,6 @@
 import sys
-__import__('pysqlite3')
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+#__import__('pysqlite3')
+#sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 import re
 import numpy as np
@@ -216,10 +216,3 @@ class RAG:
         if not context.strip():
             return "No encontré información relevante en documentos ni en la web."
         return context
-
-# Compatibilidad LlamaIndex
-def create_index(documents):
-    return VectorStoreIndex.from_documents(documents)
-
-def create_chat_engine(index, verbose: bool = False):
-    return index.as_chat_engine(chat_mode="context", verbose=verbose)

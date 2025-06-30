@@ -55,6 +55,30 @@
     {
       "role": "assistant",
       "content": "Sí, según el documento \"Plan de Estudios\" de la carrera de Ingeniería Civil de la UTN Facultad Regional Santa Fe, las materias de primer año son:\n\n1. Análisis Matemático I\n2. Álgebra y Geometría Analítica\n3. Física I\n4. Química General\n5. Ingeniería y Sociedad\n6. Economía\n\nAdemás, se menciona que las materias básicas homogeneizadas son:\n\n1. Álgebra y Geometría Analítica\n2. Análisis Matemático I\n3. Análisis Matemático II\n4. Probabilidad y Estadística\n5. Física I\n6. Física II\n7. Química General\n8. Ingeniería y Sociedad\n9. Economía\n\nEs importante mencionar que el plan de estudios puede variar dependiendo de la fecha de ingreso y otros factores, por lo que es recomendable verificar la información con la facultad o en el sitio web oficial de la UTN Facultad Regional Santa Fe."
+    },
+    {
+      "role": "user",
+      "content": "cuales son las materias de primer año de ing en sistemas?"
+    },
+    {
+      "role": "assistant",
+      "content": "Según el plan de estudios disponible (https://www.frsf.utn.edu.ar/images/mflauria/Ord_CS_N_1877_ISI_Plan_2023.pdf),  las materias de primer año de Ingeniería en Sistemas de Información incluyen Análisis Matemático I e Inglés I.\n"
+    },
+    {
+      "role": "user",
+      "content": "cuales son las materias de primer año de ing civil?"
+    },
+    {
+      "role": "assistant",
+      "content": "Según el Plan de Estudios de Ingeniería Civil de la UTN Santa Fe (https://www.frsf.utn.edu.ar/uploads/dto-ing-civil/Plan_de_Estudios.pdf), las materias de primer año son Álgebra y Geometría Analítica, Análisis Matemático I, Física I, Química General, Ingeniería y Sociedad y Probabilidad y Estadística.  Economía también se considera una materia de primer año.\n"
+    },
+    {
+      "role": "user",
+      "content": "cuales son las autoridades del ceut de la utn frsf?"
+    },
+    {
+      "role": "assistant",
+      "content": "La información provista no incluye la nómina de autoridades del Centro de Estudiantes de la UTN FRSF.\n"
     }
   ]
 }
