@@ -10,7 +10,7 @@ from sentence_transformers import SentenceTransformer
 load_dotenv()
 
 class Agent:
-    def __init__(self, rag_system=None, tools: Optional[List[Tool]] = None, memory=None):
+    def __init__(self, rag_system=None, tools: Optional[object] = None, memory=None):
         self.groq_api_key = os.getenv("GROQ_API_KEY")
         if not self.groq_api_key:
             raise ValueError("Falta GROQ_API_KEY en .env")
@@ -27,15 +27,13 @@ class Agent:
             "Responde de forma directa y concisa usando la información disponible. "
             "Si usas documentos o herramientas, menciona brevemente la fuente pero mantén la respuesta clara y al punto."
         )
-        
-        self.memory = memory  # nueva línea
+
+        self.memory = memory
 
     def process_query(self, query: str, context: str = "", history: Optional[List[dict]] = None) -> str:
         messages = [{"role": "system", "content": self.system_prompt}]
-
         if history is None and self.memory:
             history = self.memory.get_history()
-
         if history:
             messages.extend(history)
 
@@ -51,7 +49,6 @@ class Agent:
             )
             respuesta_text = response.choices[0].message.content
 
-            # Guardar la conversación en memoria
             if self.memory:
                 self.memory.add_message("user", user_message)
                 self.memory.add_message("assistant", respuesta_text)
@@ -62,27 +59,21 @@ class Agent:
             return f"Error: {e}"
 
     def generate_response(self, query: str, history: Optional[List[dict]] = None) -> dict:
-        """
-        Ejecuta un razonamiento RAG + tools + LLM para responder una pregunta
-        """
         reasoning_steps = []
         context = ""
 
-        # Paso 1: obtener contexto documental
         if self.rag_system:
             doc_context = self.rag_system.get_context(query)
             if doc_context:
                 context += f"\n\n[Contexto RAG]:\n{doc_context}"
                 reasoning_steps.append("Se usó contexto de RAG.")
 
-        # Paso 2: evaluar necesidad de herramientas
         tool_outputs = []
         used_tools = []
 
         if self.tools and self._needs_tools(query):
-            # Si tools es un objeto Tools, obtener la lista
             tools_list = self.tools.list_all_tools() if hasattr(self.tools, 'list_all_tools') else self.tools
-            
+
             for tool in tools_list:
                 if self._tool_matches_query(tool.name, query):
                     try:
@@ -91,11 +82,11 @@ class Agent:
                         used_tools.append(tool.name)
                     except Exception as e:
                         tool_outputs.append(f"{tool.name} falló: {e}")
+
             if tool_outputs:
                 context += "\n\n[Resultados de herramientas]:\n" + "\n".join(tool_outputs)
                 reasoning_steps.append("Se invocaron herramientas: " + ", ".join(used_tools))
 
-        # Paso 3: generar respuesta
         response = self.process_query(query, context=context, history=history)
 
         return {

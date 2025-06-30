@@ -1,6 +1,7 @@
 import re
 import numpy as np
 import pandas as pd
+from typing import List, Dict, Optional, Union
 from sentence_transformers import SentenceTransformer
 import chromadb
 from sklearn.decomposition import PCA
@@ -9,79 +10,101 @@ import plotly.express as px
 from tools import Tools
 from llama_index.core import VectorStoreIndex
 
+import logging
+logging.basicConfig(
+    filename="logs/pdf_processing.log",
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    encoding="utf-8"
+)
+
+import tiktoken
+def count_tokens(text: str, model: str = "gpt-3.5-turbo") -> int:
+    try:
+        enc = tiktoken.encoding_for_model(model)
+    except KeyError:
+        enc = tiktoken.get_encoding("cl100k_base")  # fallback
+    return len(enc.encode(text))
+
 class RAG:
-    def __init__(self, persist_directory="./data/chroma_db", tools=None, tavily_api_key=None):
+    def __init__(self, persist_directory: str = "./data/chroma_db", tools: Optional[Tools] = None, tavily_api_key: Optional[str] = None):
         self.model = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
-        self.persist_directory = persist_directory
         self.client = chromadb.PersistentClient(path=persist_directory)
+        self.persist_directory = persist_directory
 
         try:
             self.collection = self.client.get_collection(name="documents")
-        except:
+        except chromadb.errors.CollectionNotFoundError:
             self.collection = self.client.create_collection(name="documents")
 
         self.embeddings_cache = {}
-        self.tools = tools if tools else Tools(tavily_api_key=tavily_api_key)
+        self.tools = tools or Tools(tavily_api_key=tavily_api_key)
 
-    def load_documents(self, text):
+    def load_documents(self, text: str) -> List[str]:
         return [s.strip() for s in re.split(r'\.\s*', text) if len(s.strip()) > 10]
 
-    def index_documents(self, documents, document_name="default"):
-        if isinstance(documents, str):
-            documents = self.load_documents(documents)
-        if not documents:
-            return False
-
+    def index_documents(self, documents: Union[str, List], document_name: str = "default") -> bool:
         try:
-            embeddings = self.model.encode(documents)
-            ids = [f"{document_name}_{i}" for i in range(len(documents))]
+            if isinstance(documents, str):
+                documents = self.load_documents(documents)
+            if not documents:
+                return False
+
+            if hasattr(documents[0], 'text') and hasattr(documents[0], 'metadata'):
+                raw_texts = [d.text for d in documents]
+                metadatas = [d.metadata for d in documents]
+            else:
+                raw_texts = documents
+                metadatas = [{"source": document_name, "sentence_id": i} for i in range(len(documents))]
+
+            embeddings = self.model.encode(raw_texts)
+            ids = [f"{document_name}_{i}" for i in range(len(raw_texts))]
+
             self.collection.add(
                 embeddings=embeddings.tolist(),
-                documents=documents,
+                documents=raw_texts,
                 ids=ids,
-                metadatas=[{"source": document_name, "sentence_id": i} for i in range(len(documents))]
+                metadatas=metadatas
             )
+
             self.embeddings_cache[document_name] = {
                 'embeddings': embeddings,
-                'documents': documents
+                'documents': raw_texts
             }
             return True
+
         except Exception as e:
-            print(f"Error indexando documentos: {e}")
+            print(f"❌ Error indexando documentos: {e}")
             return False
 
-    def search(self, query, top_k=3):
+    def search(self, query: str, top_k: int = 3) -> List[Dict]:
         if not query.strip():
             return []
-
         try:
-            query_embedding = self.model.encode([query])
-            results = self.collection.query(
-                query_embeddings=query_embedding.tolist(),
-                n_results=top_k
-            )
-
-            return [
+            embedding = self.model.encode([query])
+            result = self.collection.query(query_embeddings=embedding.tolist(), n_results=top_k)
+            
+            documents_info = [
                 {
                     'document': doc,
                     'similarity': 1 - dist,
                     'source': meta.get('source', 'local'),
                     'distance': dist
                 }
-                for doc, dist, meta in zip(
-                    results['documents'][0],
-                    results['distances'][0],
-                    results['metadatas'][0]
-                )
+                for doc, dist, meta in zip(result['documents'][0], result['distances'][0], result['metadatas'][0])
             ]
+
+            # Loguear info de los docs recuperados
+            logging.info(f"[RAG Search] Query: {query}")
+            for info in documents_info:
+                logging.info(f"[RAG Search] Doc source: {info['source']}, Similarity: {info['similarity']:.4f}")
+
+            return documents_info
         except Exception as e:
-            print(f"Error en búsqueda: {e}")
+            logging.error(f"❌ Error en búsqueda: {e}")
             return []
 
-    def get_rag_results(self, query, top_k=3, include_web=True):
-        """
-        Devuelve los resultados relevantes (locales y web) para un query.
-        """
+    def get_rag_results(self, query: str, top_k: int = 3, include_web: bool = True) -> Dict:
         results = {
             "documents": [],
             "web_results": [],
@@ -90,19 +113,18 @@ class RAG:
             "confidence": 0.0
         }
 
-        doc_results = self.search(query, top_k=top_k)
+        local_results = self.search(query, top_k=top_k)
+        web_results = None
         if include_web:
             if self.tools.tavily_client:
                 web_results = self.tools.search_web_tavily(query, max_results=top_k)
             else:
                 web_results = self.tools.search_web_duckduckgo(query, max_results=top_k)
-        else:
-            web_results = None
 
         context_parts = []
         similarities = []
 
-        for res in doc_results:
+        for res in local_results:
             context_parts.append(f"📄 {res['document']}")
             similarities.append(res['similarity'])
             results["documents"].append(res)
@@ -114,66 +136,65 @@ class RAG:
                 title = item.get("title", "")
                 url = item.get("url", "")
                 context_parts.append(f"🌐 {title}: {snippet} ({url})")
-                results["web_results"].append({
-                    'title': title,
-                    'snippet': snippet,
-                    'url': url
-                })
+                results["web_results"].append({'title': title, 'snippet': snippet, 'url': url})
                 results["sources"].append(url)
 
         results["combined_context"] = "\n\n".join(context_parts)
         results["confidence"] = float(np.mean(similarities)) if similarities else 0.0
+
+        # Log de contexto combinado y fuentes
+        logging.info(f"[RAG Results] Query: {query}")
+        logging.info(f"[RAG Results] Sources: {results['sources']}")
+        logging.info(f"[RAG Results] Confidence: {results['confidence']:.4f}")
+        logging.debug(f"[RAG Results] Combined context:\n{results['combined_context'][:1000]}")  # Limitar para no llenar logs
+
+        for i, part in enumerate(context_parts):
+            logging.info(f"[RAG Results] Context part {i}: {part[:1000]}")  # Primeros 500 caracteres
+
         return results
 
-    def get_context(self, query, max_context_length=1000, include_web=True):
-        """
-        Devuelve solo el contexto en texto plano, para usar en prompts.
-        """
+    def get_context(self, query: str, max_context_length: int = 7000, include_web: bool = True) -> str:
         rag_info = self.get_rag_results(query, include_web=include_web)
-        context = rag_info["combined_context"]
-        return context[:max_context_length]
+        return rag_info["combined_context"][:max_context_length]
 
-    def get_collection_stats(self):
+    def get_collection_stats(self) -> Dict[str, Union[int, str]]:
         try:
             return {
                 'total_documents': self.collection.count(),
                 'collection_name': self.collection.name
             }
-        except:
+        except Exception:
             return {'total_documents': 0, 'collection_name': 'documents'}
 
-    def clear_collection(self):
+    def clear_collection(self) -> bool:
         try:
             self.client.delete_collection(name="documents")
             self.collection = self.client.create_collection(name="documents")
             self.embeddings_cache.clear()
             return True
         except Exception as e:
-            print(f"Error limpiando colección: {e}")
+            print(f"❌ Error limpiando colección: {e}")
             return False
 
-    def visualize_embeddings(self, document_name=None):
+    def visualize_embeddings(self, document_name: Optional[str] = None):
         if not self.embeddings_cache:
             return None
         try:
             if document_name and document_name in self.embeddings_cache:
                 data = self.embeddings_cache[document_name]
-                embeddings = data['embeddings']
-                documents = data['documents']
+                embeddings, documents = data['embeddings'], data['documents']
                 sources = [document_name] * len(documents)
             else:
-                embeddings_list, documents_list, sources_list = [], [], []
+                embeddings, documents, sources = [], [], []
                 for name, data in self.embeddings_cache.items():
-                    embeddings_list.append(data['embeddings'])
-                    documents_list.extend(data['documents'])
-                    sources_list.extend([name] * len(data['documents']))
-                embeddings = np.vstack(embeddings_list)
-                documents = documents_list
-                sources = sources_list
+                    embeddings.append(data['embeddings'])
+                    documents.extend(data['documents'])
+                    sources.extend([name] * len(data['documents']))
+                embeddings = np.vstack(embeddings)
 
             pca = PCA(n_components=2)
-            pca_embeddings = pca.fit_transform(embeddings)
-            df = pd.DataFrame(pca_embeddings, columns=['PCA1', 'PCA2'])
+            coords = pca.fit_transform(embeddings)
+            df = pd.DataFrame(coords, columns=['PCA1', 'PCA2'])
             df['text'] = documents
             df['source'] = sources
             fig = px.scatter(df, x='PCA1', y='PCA2', color='source', hover_data=['text'],
@@ -181,16 +202,20 @@ class RAG:
             fig.update_layout(hovermode='closest')
             return fig
         except Exception as e:
-            print(f"Error en visualización: {e}")
+            print(f"❌ Error en visualización: {e}")
             return None
 
-    def chat(self, query):
-        context = self.get_context(query)
-        return context if context else "No encontré información relevante en documentos ni en la web."
+    def chat(self, query: str) -> str:
+        context = self.get_context(query, max_context_length=1500)
+        logging.info(f"[Chat] Context length: {len(context)}")
+        logging.debug(f"[Chat] Context completo:\n{context}")
+        if not context.strip():
+            return "No encontré información relevante en documentos ni en la web."
+        return context
 
-# Compatibilidad con LlamaIndex
+# Compatibilidad LlamaIndex
 def create_index(documents):
     return VectorStoreIndex.from_documents(documents)
 
-def create_chat_engine(index, verbose=False):
+def create_chat_engine(index, verbose: bool = False):
     return index.as_chat_engine(chat_mode="context", verbose=verbose)

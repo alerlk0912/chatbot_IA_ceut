@@ -45,7 +45,6 @@ from memory import ConversationMemory  # IMPORTA tu clase memory
 def cargar_chat_engine():
     configure_llm()
     tools = Tools(tavily_api_key=os.getenv("TAVILY_API_KEY"))
-    #tools_list = tools.get_tools_list()
     rag = RAG(persist_directory="./data/chroma_db", tools=tools)
 
     if rag.get_collection_stats()["total_documents"] == 0:
