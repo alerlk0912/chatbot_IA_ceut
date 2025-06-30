@@ -1,4 +1,5 @@
 streamlit
+pysqlite3-binary
 PyPDF2
 pypdf
 pdfplumber
