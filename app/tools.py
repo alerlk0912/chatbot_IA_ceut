@@ -221,14 +221,14 @@ class Tools:
         self.pdf_processor = GenericPDFProcessor(chunk_size=800, chunk_overlap=100)
         self.tavily_client = TavilyClient(api_key=tavily_api_key) if TAVILY_AVAILABLE and tavily_api_key else None
 
-    @tool
     def load_pdfs_from_folder(self, folder_path: str = "data") -> List[Document]:
         """Carga todos los archivos PDF desde una carpeta 
-        y los convierte en objetos Document para RAG."""
+        y los convierte en objetos Document para RAG con metadatos útiles."""
         chunks = self.pdf_processor.process_folder(folder_path)
-        return [Document(text=c.content, metadata=c.metadata) for c in chunks]
+        documentos = [Document(text=c.content, metadata=c.metadata) for c in chunks]
+        logging.info(f"[Tools] 📄 PDFs procesados: {len(documentos)} documentos cargados desde '{folder_path}'")
+        return documentos
 
-    @tool
     def search_web(self, query: str, max_results: int = 3, prefer_tavily: bool = True) -> dict:
         """Realiza una búsqueda web utilizando Tavily o DuckDuckGo y devuelve los resultados relevantes."""
         strategies = []
@@ -250,7 +250,7 @@ class Tools:
                 query=query, 
                 max_results=max_results, 
                 search_depth="advanced", 
-                include_domains=['frsf.utn.edu.ar', 'ceut-frsf.com.ar']
+                include_domains=['frsf.utn.edu.ar', 'ceut-frsf.com.ar', 'utn.edu.ar/es/', 'sysacad.frsf.utn.edu.ar/']
             )
             return {
                 'query': query,
@@ -264,7 +264,7 @@ class Tools:
     def search_web_duckduckgo(self, query: str, max_results: int) -> dict:
         try:
             with DDGS() as ddgs:
-                search_query = f"{query} (site:frsf.utn.edu.ar OR site:ceut-frsf.com.ar)"
+                search_query = f"{query} (site:frsf.utn.edu.ar OR site:ceut-frsf.com.ar OR 'utn.edu.ar/es/' OR 'sysacad.frsf.utn.edu.ar/')"
                 results = ddgs.text(
                     search_query, 
                     max_results=max_results, 

@@ -39,22 +39,53 @@ from agent import Agent
 
 from memory import ConversationMemory  # IMPORTA tu clase memory
 
+import logging
+
+logging.basicConfig(
+    filename="logs/main.log",
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    encoding="utf-8"
+)
+
 @st.cache_resource
 def cargar_chat_engine():
+    logging.info("📦 Iniciando carga del motor de chat...")
     tools = Tools(tavily_api_key=os.getenv("TAVILY_API_KEY"))
-    rag = RAG(persist_directory="./data/chroma_db", tools=tools)
+    logging.info(f"🔧 Tools instanciado correctamente: {type(tools)}")
+    
+    # Paso 1: Cargar e indexar documentos si es necesario
+    persist_path = "./data/chroma_db"
+    needs_indexing = True
 
-    if rag.get_collection_stats()["total_documents"] == 0:
+    rag = RAG(persist_directory=persist_path, tools=tools)
+    
+    stats = rag.get_collection_stats()
+    logging.info(f"📊 DOCUMENTOS EN BASE: {stats['total_documents']}")
+    
+    if needs_indexing:
+        logging.info("📂 No hay base persistente o está vacía. Se cargarán documentos desde carpeta 'data/'.")
         documents = tools.load_pdfs_from_folder("data")
-        joined_text = "\n\n".join([doc.text for doc in documents])
-        rag.index_documents(joined_text, document_name="ceut")
+        for doc in documents:
+            logging.info(f"📝 Documento: {doc.metadata.get('source', 'desconocido')}")
+        
+        success = rag.index_documents(documents, document_name="ceut")
+        stats = rag.get_collection_stats()
+        
+        if success:
+            logging.info(f"✅ Indexación exitosa. Total documentos indexados: {stats['total_documents']}")
+        else:
+            logging.warning("⚠️ Falló la indexación de documentos.")
+    else:
+        stats = rag.get_collection_stats()
+        logging.info(f"📚 Sistema RAG inicializado. Documentos ya indexados: {stats['total_documents']}")
 
-    # Crear instancia de memoria (puedes usar user_id diferente si querés)
+    # Paso 3: Inicializar memoria y agente
     memory = ConversationMemory(session_file="./data/sessions.json", user_id="default_user")
+    logging.info("🧠 Memoria de conversación inicializada.")
 
-    # Pasar memory al agente
-    agent = Agent(rag_system=rag, tools=tools, memory=memory)
-    return agent
+    return Agent(rag_system=rag, tools=tools, memory=memory)
+
 
 def render_header():
     logo_base64 = get_base64_image("ceut-logo.png")
@@ -79,11 +110,9 @@ def render_quick_questions():
     st.markdown('<div class="quick-questions-title">Preguntas Frecuentes</div>', unsafe_allow_html=True)
     quick_questions = [
         {"text": "¿Qué becas están disponibles?", "category": "Becas", "icon": "🎓"},
-        {"text": "¿Cuándo es el próximo evento?", "category": "Eventos", "icon": "📅"},
-        {"text": "¿Cómo me contacto con el centro?", "category": "Contacto", "icon": "💬"},
         {"text": "¿Qué actividades deportivas hay?", "category": "Deportes", "icon": "👥"},
-        {"text": "¿Cuáles son los horarios de atención?", "category": "Horarios", "icon": "🕐"},
-        {"text": "¿Qué dice el reglamento de becas?", "category": "Documentos", "icon": "📄"}
+        {"text": "¿Teléfonos Útiles de la UTN Santa Fe?", "category": "Contacto", "icon": "💬"},
+        {"text": "¿Cuándo es el próximo evento?", "category": "Eventos", "icon": "📅"}
     ]
     for i, question in enumerate(quick_questions):
         if st.button(f"{question['icon']} {question['text']}", key=f"quick_{i}", use_container_width=True):

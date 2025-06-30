@@ -12,7 +12,6 @@ from sklearn.decomposition import PCA
 import plotly.express as px
 
 from tools import Tools
-from llama_index.core import VectorStoreIndex
 
 import logging
 logging.basicConfig(
@@ -36,10 +35,13 @@ class RAG:
         self.client = chromadb.PersistentClient(path=persist_directory)
         self.persist_directory = persist_directory
 
-        try:
+        # Buscar si la colección 'documents' ya existe
+        existing = [col.name for col in self.client.list_collections()]
+        if "documents" in existing:
             self.collection = self.client.get_collection(name="documents")
-        except chromadb.errors.CollectionNotFoundError:
+        else:
             self.collection = self.client.create_collection(name="documents")
+
 
         self.embeddings_cache = {}
         self.tools = tools or Tools(tavily_api_key=tavily_api_key)
@@ -50,7 +52,7 @@ class RAG:
     def index_documents(self, documents: Union[str, List], document_name: str = "default") -> bool:
         try:
             if isinstance(documents, str):
-                documents = self.load_documents(documents)
+                documents = [documents]
             if not documents:
                 return False
 

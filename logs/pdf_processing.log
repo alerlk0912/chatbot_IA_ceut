@@ -1,95 +1,360 @@
-2025-06-30 14:49:15,381 - INFO - Use pytorch device_name: cpu
-2025-06-30 14:49:15,381 - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
-2025-06-30 14:49:18,844 - INFO - [RAG Search] Query: cuales son las autoridades del ceut de la utn frsf?
-2025-06-30 14:49:18,844 - INFO - [RAG Search] Doc source: ceut, Similarity: -11.2932
-2025-06-30 14:49:18,844 - INFO - [RAG Search] Doc source: ceut, Similarity: -11.9608
-2025-06-30 14:49:18,845 - INFO - [RAG Search] Doc source: ceut, Similarity: -13.7147
-2025-06-30 14:49:24,591 - INFO - [RAG Results] Query: cuales son las autoridades del ceut de la utn frsf?
-2025-06-30 14:49:24,591 - INFO - [RAG Results] Sources: ['ceut', 'ceut', 'ceut', 'https://www.frsf.utn.edu.ar/images/SCTyV-Romero_Sergio/Normativas/POL%C3%8DTICA_DE_CIENCIA_Y_TECNOLOG%C3%8DA/Res-CD-391-12.pdf', 'https://www.frsf.utn.edu.ar/uploads/institucional/Informe_de_Gesti%C3%B3n_2014.pdf', 'https://euroelecs2019.frsf.utn.edu.ar/institucional/autoridades']
-2025-06-30 14:49:24,592 - INFO - [RAG Results] Confidence: -12.3229
-2025-06-30 14:49:24,592 - INFO - [RAG Results] Context part 0: 📄 HUEL
-Rectorado JEFE DE DEPARTAMENTO
-APOYO AL CONSEJO SUPERIOR
-PARA CURSAR
-Y RENDIR
-NIVEL Nº ASIGNATURA
-Cursadas Aprobadas
-31 Inteligencia Artificial 28 17-22
-32 Ciencia de Datos 28 17-19
-33 Sistemas de Gestión 18-27 23
-V 34 Gestión Gerencial 24-30 18
-Seguridad en los Sistemas de
-35 26-30 20-21
-Información
-Para cursar
-36 Proyecto Final (integradora) 25-26-30 12-20-23
-Proyecto Final
-Es condición para rendir Proyecto Final, aprobar todas las asignaturas previas del
-Plan de Estudios
-Práctica Profesional Supervisada
-Es condición previa para iniciar y acreditar la Práctica Profesional Supervisada el
-cumplimiento de los requisitos académicos exigidos para la inscripción a Proyecto
-Final
-5
-2025-06-30 14:49:24,592 - INFO - [RAG Results] Context part 1: 📄 HUEL
-Rectorado JEFE DE DEPARTAMENTO
-APOYO AL CONSEJO SUPERIOR
-PARA CURSAR
-Y RENDIR
-NIVEL Nº ASIGNATURA
-Cursadas Aprobadas
-17 Probabilidad y Estadística 1-2 -
-18 Economía - 1-2
-19 Bases de Datos 13-16 5-6
-III 20 Desarrollo de Software 14-16 5-6
-21 Comunicación de Datos - 3-7
-22 Análisis Numérico 9 1-2
-Diseño de Sistemas de Información
-23 14-16 4-6-8
-(integradora)
-24 Legislación 11 -
-25 Ingeniería y Calidad de Software 19-20-23 13-14
-26 Redes de Datos 15-21 -
-IV 27 Investigación Operativa 17-22 -
-28 Simulación 17 9
-29 Tecnologías para la automatización 10-22 9
-Administración de Sistemas de
-30 18-23 16
-Información (integradora)
-4
+2025-06-30 18:36:18,240 - INFO - 📦 Iniciando carga del motor de chat...
+2025-06-30 18:36:18,240 - INFO - 🔧 Tools instanciado correctamente: <class 'tools.Tools'>
+2025-06-30 18:36:18,243 - INFO - Use pytorch device_name: cpu
+2025-06-30 18:36:18,243 - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-06-30 18:36:22,688 - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-06-30 18:36:22,825 - INFO - 📊 DOCUMENTOS EN BASE: 56
+2025-06-30 18:36:22,825 - INFO - 📂 No hay base persistente o está vacía. Se cargarán documentos desde carpeta 'data/'.
+2025-06-30 18:36:22,826 - INFO - Procesando PDF: data\Plan-de-estudio-Civil.pdf
+2025-06-30 18:36:23,233 - INFO - Detectada carrera: sistemas en archivo Plan-de-estudio-Civil.pdf
+2025-06-30 18:36:23,234 - INFO - Procesando página 1 de Plan-de-estudio-Civil.pdf
+2025-06-30 18:36:23,259 - INFO - Procesando página 2 de Plan-de-estudio-Civil.pdf
+2025-06-30 18:36:23,287 - INFO - Procesando página 3 de Plan-de-estudio-Civil.pdf
+2025-06-30 18:36:23,310 - INFO - Procesando página 4 de Plan-de-estudio-Civil.pdf
+2025-06-30 18:36:23,338 - INFO - Chunks totales extraídos: 10 del archivo Plan-de-estudio-Civil.pdf
+2025-06-30 18:36:23,339 - INFO - Se extrajeron 10 chunks del PDF Plan-de-estudio-Civil.pdf
+2025-06-30 18:36:23,339 - INFO - Procesando PDF: data\Plan-de-estudio-Energa-Elctrica.pdf
+2025-06-30 18:36:23,705 - INFO - Detectada carrera: sistemas en archivo Plan-de-estudio-Energa-Elctrica.pdf
+2025-06-30 18:36:23,705 - INFO - Procesando página 1 de Plan-de-estudio-Energa-Elctrica.pdf
+2025-06-30 18:36:23,727 - INFO - Procesando página 2 de Plan-de-estudio-Energa-Elctrica.pdf
+2025-06-30 18:36:23,748 - INFO - Procesando página 3 de Plan-de-estudio-Energa-Elctrica.pdf
+2025-06-30 18:36:23,764 - INFO - Procesando página 4 de Plan-de-estudio-Energa-Elctrica.pdf
+2025-06-30 18:36:23,789 - INFO - Chunks totales extraídos: 10 del archivo Plan-de-estudio-Energa-Elctrica.pdf
+2025-06-30 18:36:23,789 - INFO - Se extrajeron 10 chunks del PDF Plan-de-estudio-Energa-Elctrica.pdf
+2025-06-30 18:36:23,789 - INFO - Procesando PDF: data\Plan-de-estudio-Industrial.pdf
+2025-06-30 18:36:24,142 - INFO - Detectada carrera: sistemas en archivo Plan-de-estudio-Industrial.pdf
+2025-06-30 18:36:24,142 - INFO - Procesando página 1 de Plan-de-estudio-Industrial.pdf
+2025-06-30 18:36:24,163 - INFO - Procesando página 2 de Plan-de-estudio-Industrial.pdf
+2025-06-30 18:36:24,195 - INFO - Procesando página 3 de Plan-de-estudio-Industrial.pdf
+2025-06-30 18:36:24,206 - INFO - Chunks totales extraídos: 11 del archivo Plan-de-estudio-Industrial.pdf
+2025-06-30 18:36:24,206 - INFO - Se extrajeron 11 chunks del PDF Plan-de-estudio-Industrial.pdf
+2025-06-30 18:36:24,206 - INFO - Procesando PDF: data\Plan-de-estudio-Mecnica.pdf
+2025-06-30 18:36:24,558 - INFO - Detectada carrera: sistemas en archivo Plan-de-estudio-Mecnica.pdf
+2025-06-30 18:36:24,558 - INFO - Procesando página 1 de Plan-de-estudio-Mecnica.pdf
+2025-06-30 18:36:24,582 - INFO - Procesando página 2 de Plan-de-estudio-Mecnica.pdf
+2025-06-30 18:36:24,606 - INFO - Procesando página 3 de Plan-de-estudio-Mecnica.pdf
+2025-06-30 18:36:24,620 - INFO - Chunks totales extraídos: 8 del archivo Plan-de-estudio-Mecnica.pdf
+2025-06-30 18:36:24,620 - INFO - Se extrajeron 8 chunks del PDF Plan-de-estudio-Mecnica.pdf
+2025-06-30 18:36:24,620 - INFO - Procesando PDF: data\Plan-de-estudio-Sistemas-de-Informacin.pdf
+2025-06-30 18:36:25,020 - INFO - Detectada carrera: sistemas en archivo Plan-de-estudio-Sistemas-de-Informacin.pdf
+2025-06-30 18:36:25,020 - INFO - Procesando página 1 de Plan-de-estudio-Sistemas-de-Informacin.pdf
+2025-06-30 18:36:25,045 - INFO - Procesando página 2 de Plan-de-estudio-Sistemas-de-Informacin.pdf
+2025-06-30 18:36:25,073 - INFO - Procesando página 3 de Plan-de-estudio-Sistemas-de-Informacin.pdf
+2025-06-30 18:36:25,087 - INFO - Chunks totales extraídos: 8 del archivo Plan-de-estudio-Sistemas-de-Informacin.pdf
+2025-06-30 18:36:25,088 - INFO - Se extrajeron 8 chunks del PDF Plan-de-estudio-Sistemas-de-Informacin.pdf
+2025-06-30 18:36:25,088 - INFO - Procesando PDF: data\Plan-Estudio-TS-en-Mecatronica.pdf
+2025-06-30 18:36:25,365 - INFO - Detectada carrera: sistemas en archivo Plan-Estudio-TS-en-Mecatronica.pdf
+2025-06-30 18:36:25,365 - INFO - Procesando página 1 de Plan-Estudio-TS-en-Mecatronica.pdf
+2025-06-30 18:36:25,415 - INFO - Chunks totales extraídos: 4 del archivo Plan-Estudio-TS-en-Mecatronica.pdf
+2025-06-30 18:36:25,415 - INFO - Se extrajeron 4 chunks del PDF Plan-Estudio-TS-en-Mecatronica.pdf
+2025-06-30 18:36:25,415 - INFO - Procesando PDF: data\Plan-Estudio-TS-en-Tecnologias-de-la-Informacion.pdf
+2025-06-30 18:36:25,926 - INFO - Detectada carrera: sistemas en archivo Plan-Estudio-TS-en-Tecnologias-de-la-Informacion.pdf
+2025-06-30 18:36:25,926 - INFO - Procesando página 1 de Plan-Estudio-TS-en-Tecnologias-de-la-Informacion.pdf
+2025-06-30 18:36:25,969 - INFO - Chunks totales extraídos: 5 del archivo Plan-Estudio-TS-en-Tecnologias-de-la-Informacion.pdf
+2025-06-30 18:36:25,969 - INFO - Se extrajeron 5 chunks del PDF Plan-Estudio-TS-en-Tecnologias-de-la-Informacion.pdf
+2025-06-30 18:36:25,972 - INFO - [Tools] 📄 PDFs procesados: 56 documentos cargados desde 'data'
+2025-06-30 18:36:25,972 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,972 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,972 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,972 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,972 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,972 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,972 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,972 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,972 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,972 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,972 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,972 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,972 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,972 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,972 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,972 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,973 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,973 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,973 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,973 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,973 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,973 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,973 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,973 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,973 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,973 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,973 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,973 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,973 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,973 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,973 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,973 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,973 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,973 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,973 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,974 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,974 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,974 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,974 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,974 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,974 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,974 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,974 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,974 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,974 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,974 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,974 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,974 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,974 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,974 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,974 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,974 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,974 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,974 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,974 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:25,975 - INFO - 📝 Documento: desconocido
+2025-06-30 18:36:28,243 - INFO - ✅ Indexación exitosa. Total documentos indexados: 56
+2025-06-30 18:36:28,244 - INFO - 🧠 Memoria de conversación inicializada.
+2025-06-30 18:36:33,705 - INFO - [RAG Search] Query: cuales son las materias de primer año de ing en sistemas?
+2025-06-30 18:36:33,705 - INFO - [RAG Search] Doc source: local, Similarity: -9.6972
+2025-06-30 18:36:33,705 - INFO - [RAG Search] Doc source: local, Similarity: -10.2625
+2025-06-30 18:36:33,705 - INFO - [RAG Search] Doc source: local, Similarity: -10.6731
+2025-06-30 18:36:36,005 - INFO - [RAG Results] Query: cuales son las materias de primer año de ing en sistemas?
+2025-06-30 18:36:36,005 - INFO - [RAG Results] Sources: ['local', 'local', 'local', 'https://sidn.frsf.utn.edu.ar/resoluciones/?pcg_page=132&pcg_show=20&pcg_sort_col=descripcion&pcg_sort_order=asc', 'https://sidn.frsf.utn.edu.ar/resoluciones/salidaPdf/28', 'https://www.frsf.utn.edu.ar/images/mflauria/Ord_CS_N_1877_ISI_Plan_2023.pdf']
+2025-06-30 18:36:36,005 - INFO - [RAG Results] Confidence: -10.2109
+2025-06-30 18:36:36,005 - INFO - [RAG Results] Context part 0: 📄 Plan de Estudio de la Tecnicatura Superior en Tecnologías de la Información
+Ordenanza N° 1547
+Evaluación
+Actividades
+Desarrollo continua y Total
+Nivel Cód Asignatura de
+teórico evaluación Hs.
+laboratorio
+final
+Primer Cuatrimestre
+01 Matemática elemental (MEL) 80 40 40 160
+02 Modelos, sistemas y organizaciones 48 24 24 96
+(MSO)
+03 Sistemas de automatización de oficinas 48 24 24 96
+(SAO)
+I
+Segundo Cuatrimestre
+04 Análisis de sistemas de información 48 24 24 96
+(ASI)
+05 Arquitectura de computadoras y 64 32 32 128
+sistemas operativos (ASO)
+06 Inglés (ING) 32 16 16 64
+07 Programación básica (PBA) 48 24 24 96
+Tercer Cuatrimestre
+08 Base de datos (BDA) 64 32 32 128
+09 Diseño de sistemas de información 64 32 32 128
+(DSI)
+10 Programación avanzada (PAV) 64 32 32 128
+II
+Cuarto Cuatrimestre
+11 Comunicación y redes (CYR) 64 32 32 128
+12 Desarrollo de sistemas de información 64 32 32 128
+(DESI)
+13 Electiva Sistemas de información 24 36 36 96
+(ELSI)
+Quinto Cuatrimestre
+14 Electiva Programación (ELP
+2025-06-30 18:36:36,005 - INFO - [RAG Results] Context part 1: 📄 CUARTO NIVEL
 
-TABLE:
+26 Seguridad, Higiene e 3 72
+Ingeniería Ambiental
+27 Investigación Operativa 4 96
+28 Procesos Industriales 5 120
+29 Mecánica y Mecanismos 3 72
+30 Evaluación de Proyectos (Int) 5 120
+31 Planificación y Control 4 96
+de la Producción
+32 Diseño de Producto 2 48
+33 Inglés II 2 48
+34 Instalaciones Industriales 3 72
+35 Legislación 48
+Total 792
+Carga Carga horaria
+.N° Asignatura
+horaria
+total anual
+(dictado
+anual) (h (h reloj)
+cat./sem.)
+2025-06-30 18:36:36,005 - INFO - [RAG Results] Context part 2: 📄 CUARTO AÑO
 
-----------------------------------------
-PABLO A
-2025-06-30 14:49:24,592 - INFO - [RAG Results] Context part 2: 📄 HUEL
-JEFE DE DEPARTAMENTO
-APOYO AL CONSEJO SUPERIOR
+26 Economía 3 72
+27 Elementos de Máquinas (Int) 5 120
+28 Tecnología del Calor 3 72
+Metrología e Ingeniería de
+29 4 96
+Calidad
+30 Mecánica de los Fluidos 4 96
+Electrotecnia y Máquinas
+31 4 96
+Eléctricas
+32 Electrónica y Sistemas de 5 120
+Control
+33 Estabilidad III 3 72
+Total 31 744
+Carga
+Carga horaria total
+Nº PRIMER NIVEL horaria
+anual en h reloj
+semanal
+(dictado
+2025-06-30 18:36:36,005 - INFO - [RAG Results] Context part 3: 🌐 UTN Facultad Regional Santa Fe: | 3º REUNIÓN ORDINARIA CONSEJO DIRECTIVO 20/05/2024 | 224 | 20-05-2024 | ARTÍCULO 1º.–Otorgar equivalencias al estudiante Juan Francisco GIMENEZ D’AMICO, DNI N° 34.904.618, en las siguientes asignaturas que se detallan a continuación, de la Carrera Ingeniería en Sistemas de Información: Seminario Universitario para el Ingreso 2024: MATEMÁTICA – INTRODUCCIÓN A LA UNIVERSIDAD – FÍSICA. Asignaturas de la carrera Ing. en Sistemas de Información: Primer Nivel: ANÁLISIS MATEMÁTICO I. Tercer Nivel: [...] | 6º REUNIÓN ORDINARIA CONSEJO DIRECTIVO 25/09/2024 | 551 | 25-09-2024 | ARTÍCULO 1º.–Otorgar equivalencias al estudiante Leonel Sebastián PORTILLO, DNI N° 44.525.514, en las siguientes asignaturas de la Carrera Ingeniería en Sistemas de Información: Primer Nivel: ANÁLISIS MATEMÁTICO I – ÁLGEBRA Y GEOMETRÍA ANALÍTICA. | 2024 |  | [...] | 3º REUNIÓN ORDINARIA CONSEJO DIRECTIVO 30/04/2025 | 177 | 30-04-2025 | ARTÍCULO 1º.–Otorgar equivalencias, a la estudiante 
+2025-06-30 18:36:36,005 - INFO - [RAG Results] Context part 4: 🌐 sidn.frsf.utn.edu.ar: Aprobar las Planificaciones y Programas Analíticos de las asignaturas de la Carrera Ingeniería en Sistemas de Información, correspondientes al ciclo lectivo 2011, primer cuatrimestre, que se detallan a continuación: • COMPUTACIÓN • GESTION INGENIERIL • MODE-LOS • PROGRAMACION • SISTEMAS DE INFORMACION • FORMACION BÁSICA (https://sidn.frsf.utn.edu.ar/resoluciones/salidaPdf/28)
+2025-06-30 18:36:36,005 - INFO - [RAG Results] Context part 5: 🌐 PDF: Carrera: Ingeniería en Sistemas de Información N° de orden: 4 Asignatura: INGLÉS I Horas cátedra semanales: 2 Departamento: Materias Básicas Horas reloj total: 48 Bloque: Ciencias y Tecnologías Complementarias Nivel: 1 Área: Idiomas RTF 3 Objetivos - Desarrollar las dimensiones de la competencia comunicativa intercultural en inglés general y técnico, para comprender y producir textos en el dominio académico-profesional. - Interactuar en equipos de trabajo negociando saberes [...] Malvinas son argentinas” Ministerio de Educación Universidad Tecnológica Nacional Rectorado 39 PABLO A. HUEL JEFE DE DEPARTAMENTO APOYO AL CONSEJO SUPERIOR Carrera: Ingeniería en Sistemas de Información N° de orden: 1 Asignatura: ANÁLISIS MATEMÁTICO I Horas cátedra semanales: 5 Departamento: Materias Básicas Horas reloj total: 120 Bloque: Ciencias Básicas de la Ingeniería Nivel: 1 Área: Matemática RTF 10 Objetivos - Resolver situaciones problemáticas y de aplicación a la ingeniería utilizando [...] el d
+2025-06-30 18:38:49,121 - INFO - [RAG Search] Query: cuales son las materias de primer año de ing en sistemas?
+2025-06-30 18:38:49,121 - INFO - [RAG Search] Doc source: local, Similarity: -9.6972
+2025-06-30 18:38:49,121 - INFO - [RAG Search] Doc source: local, Similarity: -10.2625
+2025-06-30 18:38:49,121 - INFO - [RAG Search] Doc source: local, Similarity: -10.6731
+2025-06-30 18:38:51,504 - INFO - [RAG Results] Query: cuales son las materias de primer año de ing en sistemas?
+2025-06-30 18:38:51,504 - INFO - [RAG Results] Sources: ['local', 'local', 'local', 'https://sidn.frsf.utn.edu.ar/resoluciones/?pcg_page=132&pcg_show=20&pcg_sort_col=descripcion&pcg_sort_order=asc', 'https://sidn.frsf.utn.edu.ar/resoluciones/salidaPdf/28', 'https://www.frsf.utn.edu.ar/images/mflauria/Ord_CS_N_1877_ISI_Plan_2023.pdf']
+2025-06-30 18:38:51,504 - INFO - [RAG Results] Confidence: -10.2109
+2025-06-30 18:38:51,504 - INFO - [RAG Results] Context part 0: 📄 Plan de Estudio de la Tecnicatura Superior en Tecnologías de la Información
+Ordenanza N° 1547
+Evaluación
+Actividades
+Desarrollo continua y Total
+Nivel Cód Asignatura de
+teórico evaluación Hs.
+laboratorio
+final
+Primer Cuatrimestre
+01 Matemática elemental (MEL) 80 40 40 160
+02 Modelos, sistemas y organizaciones 48 24 24 96
+(MSO)
+03 Sistemas de automatización de oficinas 48 24 24 96
+(SAO)
+I
+Segundo Cuatrimestre
+04 Análisis de sistemas de información 48 24 24 96
+(ASI)
+05 Arquitectura de computadoras y 64 32 32 128
+sistemas operativos (ASO)
+06 Inglés (ING) 32 16 16 64
+07 Programación básica (PBA) 48 24 24 96
+Tercer Cuatrimestre
+08 Base de datos (BDA) 64 32 32 128
+09 Diseño de sistemas de información 64 32 32 128
+(DSI)
+10 Programación avanzada (PAV) 64 32 32 128
+II
+Cuarto Cuatrimestre
+11 Comunicación y redes (CYR) 64 32 32 128
+12 Desarrollo de sistemas de información 64 32 32 128
+(DESI)
+13 Electiva Sistemas de información 24 36 36 96
+(ELSI)
+Quinto Cuatrimestre
+14 Electiva Programación (ELP
+2025-06-30 18:38:51,505 - INFO - [RAG Results] Context part 1: 📄 CUARTO NIVEL
 
+26 Seguridad, Higiene e 3 72
+Ingeniería Ambiental
+27 Investigación Operativa 4 96
+28 Procesos Industriales 5 120
+29 Mecánica y Mecanismos 3 72
+30 Evaluación de Proyectos (Int) 5 120
+31 Planificación y Control 4 96
+de la Producción
+32 Diseño de Producto 2 48
+33 Inglés II 2 48
+34 Instalaciones Industriales 3 72
+35 Legislación 48
+Total 792
+Carga Carga horaria
+.N° Asignatura
+horaria
+total anual
+(dictado
+anual) (h (h reloj)
+cat./sem.)
+2025-06-30 18:38:51,505 - INFO - [RAG Results] Context part 2: 📄 CUARTO AÑO
 
-TABLE:
-NIVEL | Nº | ASIGNATURA | PARA CURSAR
-Y RENDIR | None
-----------------------------------------
-None | None | None | Cursadas | Aprobadas
-V | 31 | Inteligencia Artificial | 28 | 17-22
-None | 32 | Ciencia de Datos | 28 | 17-19
-None | 33 | Sistemas de Gestión | 18-27 | 23
-None | 34 | Gestión Gerencial | 24-30 | 18
-None | 35 | Seguridad en los Sistemas de
-Información | 26-30 | 20-21
-None |  | None | Para cursar | None
-None | 36 | Proyecto Final (integradora) | 25-26-30 | 12-20-23
-Proyecto Final | None | None | None | None
-Es condición para rendir Proyecto Final, aprobar todas las asignaturas previas del
-Plan de Estudios | None | None | None | None
-Práctica Profesional Supervisada | None | None | None | None
-Es condición previa para iniciar y acreditar la Práctica Profesional Supervisada el
-cumplimiento de los requisitos académicos exigidos para la inscripción a Proyecto
-Final | None | None | None | None
+26 Economía 3 72
+27 Elementos de Máquinas (Int) 5 120
+28 Tecnología del Calor 3 72
+Metrología e Ingeniería de
+29 4 96
+Calidad
+30 Mecánica de los Fluidos 4 96
+Electrotecnia y Máquinas
+31 4 96
+Eléctricas
+32 Electrónica y Sistemas de 5 120
+Control
+33 Estabilidad III 3 72
+Total 31 744
+Carga
+Carga horaria total
+Nº PRIMER NIVEL horaria
+anual en h reloj
+semanal
+(dictado
+2025-06-30 18:38:51,505 - INFO - [RAG Results] Context part 3: 🌐 UTN Facultad Regional Santa Fe: | 3º REUNIÓN ORDINARIA CONSEJO DIRECTIVO 20/05/2024 | 224 | 20-05-2024 | ARTÍCULO 1º.–Otorgar equivalencias al estudiante Juan Francisco GIMENEZ D’AMICO, DNI N° 34.904.618, en las siguientes asignaturas que se detallan a continuación, de la Carrera Ingeniería en Sistemas de Información: Seminario Universitario para el Ingreso 2024: MATEMÁTICA – INTRODUCCIÓN A LA UNIVERSIDAD – FÍSICA. Asignaturas de la carrera Ing. en Sistemas de Información: Primer Nivel: ANÁLISIS MATEMÁTICO I. Tercer Nivel: [...] | 6º REUNIÓN ORDINARIA CONSEJO DIRECTIVO 25/09/2024 | 551 | 25-09-2024 | ARTÍCULO 1º.–Otorgar equivalencias al estudiante Leonel Sebastián PORTILLO, DNI N° 44.525.514, en las siguientes asignaturas de la Carrera Ingeniería en Sistemas de Información: Primer Nivel: ANÁLISIS MATEMÁTICO I – ÁLGEBRA Y GEOMETRÍA ANALÍTICA. | 2024 |  | [...] | 3º REUNIÓN ORDINARIA CONSEJO DIRECTIVO 30/04/2025 | 177 | 30-04-2025 | ARTÍCULO 1º.–Otorgar equivalencias, a la estudiante 
+2025-06-30 18:38:51,505 - INFO - [RAG Results] Context part 4: 🌐 sidn.frsf.utn.edu.ar: Aprobar las Planificaciones y Programas Analíticos de las asignaturas de la Carrera Ingeniería en Sistemas de Información, correspondientes al ciclo lectivo 2011, primer cuatrimestre, que se detallan a continuación: • COMPUTACIÓN • GESTION INGENIERIL • MODE-LOS • PROGRAMACION • SISTEMAS DE INFORMACION • FORMACION BÁSICA (https://sidn.frsf.utn.edu.ar/resoluciones/salidaPdf/28)
+2025-06-30 18:38:51,505 - INFO - [RAG Results] Context part 5: 🌐 PDF: Carrera: Ingeniería en Sistemas de Información N° de orden: 4 Asignatura: INGLÉS I Horas cátedra semanales: 2 Departamento: Materias Básicas Horas reloj total: 48 Bloque: Ciencias y Tecnologías Complementarias Nivel: 1 Área: Idiomas RTF 3 Objetivos - Desarrollar las dimensiones de la competencia comunicativa intercultural en inglés general y técnico, para comprender y producir textos en el dominio académico-profesional. - Interactuar en equipos de trabajo negociando saberes [...] Malvinas son argentinas” Ministerio de Educación Universidad Tecnológica Nacional Rectorado 39 PABLO A. HUEL JEFE DE DEPARTAMENTO APOYO AL CONSEJO SUPERIOR Carrera: Ingeniería en Sistemas de Información N° de orden: 1 Asignatura: ANÁLISIS MATEMÁTICO I Horas cátedra semanales: 5 Departamento: Materias Básicas Horas reloj total: 120 Bloque: Ciencias Básicas de la Ingeniería Nivel: 1 Área: Matemática RTF 10 Objetivos - Resolver situaciones problemáticas y de aplicación a la ingeniería utilizando [...] el d
+2025-06-30 18:43:56,137 - INFO - [RAG Search] Query: cuales son las materias de primer año de ing civil?
+2025-06-30 18:43:56,137 - INFO - [RAG Search] Doc source: local, Similarity: -9.3961
+2025-06-30 18:43:56,137 - INFO - [RAG Search] Doc source: local, Similarity: -10.9025
+2025-06-30 18:43:56,137 - INFO - [RAG Search] Doc source: local, Similarity: -10.9594
+2025-06-30 18:44:00,682 - INFO - [RAG Results] Query: cuales son las materias de primer año de ing civil?
+2025-06-30 18:44:00,683 - INFO - [RAG Results] Sources: ['local', 'local', 'local', 'https://www.frsf.utn.edu.ar/uploads/dto-ing-civil/Plan_de_Estudios.pdf', 'https://www.frsf.utn.edu.ar/uploads/dto-ing-civil/Programa_Anal%C3%ADtico.pdf']
+2025-06-30 18:44:00,683 - INFO - [RAG Results] Confidence: -10.4193
+2025-06-30 18:44:00,683 - INFO - [RAG Results] Context part 0: 📄 Las Facultades Regionales tienen las atribuciones para modificar el nivel de
+implementación de cada asignatura del Plan, como así también su desarrollo en forma
+anual o cuatrimestral; siempre que se respete el régimen de correlatividades.
+Las asignaturas electivas sumarán 11 h cátedra anuales / 22 h cátedra cuatrimestrales
+por semana. Las mismas, con su modalidad, contenidos, objetivos, carga horaria, etc.
+serán definidas por cada Facultad Regional o Unidad Académica, de acuerdo a las
+reglamentaciones vigentes.
+2025-06-30 18:44:00,683 - INFO - [RAG Results] Context part 1: 📄 37 Manejo de Materiales 3 72
+y Distribución de
+Plantas
+38 Comercio Exterior 3 72
+39 Relaciones Industriales 3 72
+40 Ingeniería en Calidad 3 72
+41 Control de Gestión 3 72
+42 Proyecto Final (Int) 6 144
+T 576
+o
+t
+al
+Electivas 1 240
+0
+Práctica Profesional Supervisada * - 200
+Duración de la carrera [h reloj] 4016
+* La reglamentación instrumental para el desarrollo de la Práctica Profesional
+Supervisada deberá ser aprobada por el Consejo Directivo de cada Facultad
+Regional, en el marco dispuesto por la normativa específica aprobada por el
+CS
+Las Facultades Regionales tienen las atribuciones para modificar el nivel de
+implementación de cada asignatura del Plan, como así también su desarrollo
+en forma anual o cuatrimestral; siempre que se respete el régimen de
+correlatividades.
+2025-06-30 18:44:00,683 - INFO - [RAG Results] Context part 2: 📄 CUARTO NIVEL
 
-
-“Malvinas son argentin
-2025-06-30 14:49:24,592 - INFO - [RAG Results] Context part 3: 🌐 (RES CD Nº 391-12) - UTN Santa Fe: www.frsf.utn.edu.ar. Page 3. UTN SANTA FE. Autoridades Universidad Tecnológica Nacional Facultad Regional Santa Fe. Decano: Ing. Rudy Grether. Vicedecano: Ing (https://www.frsf.utn.edu.ar/images/SCTyV-Romero_Sergio/Normativas/POL%C3%8DTICA_DE_CIENCIA_Y_TECNOLOG%C3%8DA/Res-CD-391-12.pdf)
-2025-06-30 14:49:24,592 - INFO - [RAG Results] Context part 4: 🌐 INFORME DE GESTIÓN UTN Santa Fe Año 2014: Autoridades Decano Eduardo J. Donnet Vicedecano Rudy Omar Grether Secretario Académico Alfonso Giménez Uribe Secretario Administrativo Miguel Ángel Bantar Secretaria de Ciencia y Tecnología Ana Rosa Tymoschuk Secretario De Extensión Universitaria Darío Lattanzi Secretario de Planeamiento y Gestión Raúl Regalini Secretario de Relaciones Institucionales Diego Pereyra Subsecretario de Vinculación Institucional Diego Martín Alarcón Subsecretario de Graduados Walter Klug Subsecretaria de Vinculación [...] UNIVERSIDAD TECNOLÓGICA NACIONAL - FACULTAD REGIONAL SANTA FE LAVAISE 610 - S3004EWB SANTA FE - ARGENTINA TE +54 (342) 460 1579 / www.frsf.utn.edu.ar INFORME DE GESTIÓN UTN Santa Fe Año 2014 Informe de Gestión UTN Santa Fe Año 2014 Índice 1. Autoridades ......................................................................................................... 3 2. Dimensión Académica .................................................................
-2025-06-30 14:49:24,593 - INFO - [RAG Results] Context part 5: 🌐 Autoridades - UTN Facultad Regional Santa Fe: Listado de autoridades de la UTN Facultad Regional Santa Fe.Decano Eduardo Donnet, Secretarias y Secretetarios. (https://euroelecs2019.frsf.utn.edu.ar/institucional/autoridades)
+26 Seguridad, Higiene e 3 72
+Ingeniería Ambiental
+27 Investigación Operativa 4 96
+28 Procesos Industriales 5 120
+29 Mecánica y Mecanismos 3 72
+30 Evaluación de Proyectos (Int) 5 120
+31 Planificación y Control 4 96
+de la Producción
+32 Diseño de Producto 2 48
+33 Inglés II 2 48
+34 Instalaciones Industriales 3 72
+35 Legislación 48
+Total 792
+Carga Carga horaria
+.N° Asignatura
+horaria
+total anual
+(dictado
+anual) (h (h reloj)
+cat./sem.)
+2025-06-30 18:44:00,683 - INFO - [RAG Results] Context part 3: 🌐 REGISTRADO ME: DIRECTORA APOYO CO~JSEJO SUPERIOR Q/Í{M~ de 'iff~tJ ~tMUY"a Y ~wloy/a rV¿¿ziVM0ú1ad Q};<»Ui!6F cv1ÍaaMud ~~kN'arIo Las materias integradoras ingenieria Givií i, ingeniería Civii íi y Tecnoiogia de la Construcción, tienen por objetivo introducir al alumno en el ámbito de la ingeniería Civil, desde el comienzo de sus estudios. Constituyen el enlace directo con las materias básicas, que en muchos casos no presentan aplicaciones directas a la ingeniería sino un recurso intermedio para llegar a un [...] Las materias básicas homogeneizadas son: Álgebra y Geometría Analítica Análisis Matemático I Análisis Matemático 11 Probabilidad y Estadística Física I Física 11 Química General Ingeniería y Sociedad.
+Economía 5.2.1.b. Asignaturas comunes de la especialidad.
+Dentro de la carrera de Ingeniería Civil se designan como asignaturas de especialidad, aquellas que son propias e indispensables en la formación del Ingeniero Civil.
+Las asignaturas de especialidad son: - Tecnología de l
+2025-06-30 18:44:00,683 - INFO - [RAG Results] Context part 4: 🌐 Programa Analítico - UTN Santa Fe: Fundamentos de informática DEPARTAMENTO Ing. Civil PLAN DE ESTUDIO Ord: 1030 CARGA HORARIA TOTAL 64 Horas NIVEL Primero PROGRAMA ANALITICO Unidad I - Arquitectura de la PC y Sistema Operativo Conceptos básicos (hardware, software, sistema operativo). El escritorio. Las ventanas. El explorador de Windows. La búsqueda. La papelera. Configurar la pantalla.Configurar el Mouse. Configurar la impresora. Agregar y/o quitar programas. Otras configuraciones del sistema (teclado, regional, sonido, [...] Ciencias Básicas, Troncales, Complementarias, Talleres y Electivas. Importancia del Tronco integrador. Misión de la materia Ingeniería Civil I Unidad II - Problemas básicos de la Ingeniería Civil Problemas sociales que los generan. Reconocimiento del problema y soluciones generales. Datos necesarios para buscar soluciones. Ejemplos. Unidad III - Identificación de obras civiles. Obras edilicias Funciones. Clasificación. Estructura. Componentes y características

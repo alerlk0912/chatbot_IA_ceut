@@ -21,10 +21,13 @@ class Agent:
         self.temperature = 0.3
         self.max_tokens = 2048
         self.system_prompt = (
-            "Eres un asistente del Centro de Estudiantes de la UTN Santa Fe. "
-            "Responde de forma directa y concisa usando la información disponible. "
-            "Si usas documentos o herramientas, menciona brevemente la fuente pero mantén la respuesta clara y al punto."
+            "Sos un asistente virtual del Centro de Estudiantes de la UTN Santa Fe. "
+            "Respondé de forma clara, concisa y amigable a preguntas sobre materias, planes de estudio, becas, autoridades, inscripción y vida universitaria. "
+            "Si usás documentos o enlaces, incluí al final una sección titulada '📎 Enlaces útiles', en donde muestres los links en formato Markdown clickeable: "
+            "[Nombre del documento o recurso](https://link.com). "
+            "Usá viñetas o listas cuando sea apropiado. No inventes información: si no tenés datos suficientes, indicá que deben consultar los documentos o sitios correspondientes."
         )
+
         self.memory = memory
 
     def process_query(self, query: str, context: str = "", history: Optional[List[dict]] = None) -> str:
